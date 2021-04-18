@@ -1,10 +1,12 @@
 <template>
 
-  <div v-if="!loading" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 ro-cols-xl-4 g-4">
+  <div v-if="!loading" class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
     <div v-for="disc in discs" :key="disc._id" class="col">
       <DiscCard 
         :name="disc.name"
-
+        :image="disc.image"
+        :url="disc.url"
+        :retailer="disc.retailer"
       />
     </div>
   </div>

@@ -1,10 +1,11 @@
 <template>
 
-  <div class="card">
-    <img src="https://m.media-amazon.com/images/I/61iW+IFWFzL._AC_SX425_.jpg" class="card-img-top" alt="...">
-    <div class="card-body">
-      <h5 class="card-title">{{ name }}</h5>
-      <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+  <div class="card h-100">
+    <img :src="image" class="card-img-top p-1" :alt="name">
+    <div class="card-body py-1">
+      <h6 class="card-title">{{ name }}</h6>
+      <h6 class="card-subtitle mb-2 text-muted">{{ retailer }}</h6>
+      <a :href="url" class="stretched-link"/>
     </div>
   </div>
 
@@ -18,6 +19,18 @@ export default {
     name: {
       type: String,
       required: true
+    },
+    image: {
+      type: String,
+      required: true
+    },
+    url: {
+      type: String,
+      required: true
+    },
+    retailer: {
+      type: String,
+      required: true
     }
   }
 }
@@ -25,5 +38,13 @@ export default {
 </script>
 
 <style>
+.card {
+  max-width: 300px;
+}
 
+.card-img-top {
+  width: 100%;
+  height: 20vh;
+  object-fit: contain;
+}
 </style>
