@@ -1,6 +1,6 @@
 <template>
 
-  <div v-if="!loading" class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
+  <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
     <div v-for="disc in discs" :key="disc._id" class="col">
       <DiscCard 
         :name="disc.name"
@@ -14,8 +14,8 @@
 </template>
 
 <script>
- import { ref, onMounted } from 'vue'
- import { fetchDiscs } from '@/api/discs'
+ import { ref, onMounted, watch, toRefs } from 'vue'
+ import { fetchDiscs, searchDiscs } from '@/api/discs'
  import DiscCard from './DiscCard'
 
 export default {
@@ -26,21 +26,26 @@ export default {
   props: {
     searchQuery: String
   },
-  setup() {
+  setup(props) {
+    const { searchQuery } = toRefs(props)
+
     const discs = ref([])
-    const loading = ref(true)
     const getDiscs = async () => {
-      loading.value = true
       discs.value = await fetchDiscs()
-      loading.value = false
+    }
+
+    const getDiscsByName = async () => {
+      console.log(`Searching for ${searchQuery.value}`)
+      discs.value = await searchDiscs(searchQuery.value)
     }
 
     onMounted(getDiscs)
 
+    watch(searchQuery, getDiscsByName)
+
     return {
       discs,
-      loading,
-      getDiscs
+      getDiscs,
     }
   }
 }

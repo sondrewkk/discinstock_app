@@ -12,9 +12,9 @@
     <div class="row justify-content-center">
       <div class="col-md-6 col-lg-6">
         <SearchBar
-         v-model="searchQuery"
          type="text"
          label="Søk"
+         @search="searchQuery = $event"
         />
         
       </div> 
@@ -37,11 +37,16 @@ export default {
      SearchResults
   },
   setup() {
-    let searchQuery = ref("")
+     const searchQuery = ref("")
 
     return {
-      searchQuery
+       searchQuery
     }
+  },
+  methods: {
+    // search(query) {
+    //   searchQuery = query
+    // }
   }
 }
 </script>

@@ -7,4 +7,12 @@ const fetchDiscs = async function() {
   return data
 }
 
-export { fetchDiscs };
+const searchDiscs = async function(discName) {
+  const headers = { "Content-Type": "application/json" };
+  const response = await fetch(`http://127.0.0.1:8000/discs/search/?name=${discName}`, headers);
+  const data = await response.json()
+
+  return data
+} 
+
+export { fetchDiscs, searchDiscs };

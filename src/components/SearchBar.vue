@@ -3,14 +3,14 @@
   <div class="input-group mb-3">
     <input 
       :v-bind="$attrs"
-      :value="modelValue"
-      @input="$emit('update:modelValue', $event.target.value)"
+      v-model="query"
+      @keyup.enter="$emit('search', query)"
       class="form-control form-control-lg" 
     />
     <button 
       class="btn btn-lg btn-outline-secondary" 
       type="button"
-        @click="$emit('search')"
+      @click="$emit('search', query)" 
     >
       {{ label }}
     </button>
@@ -19,20 +19,26 @@
 </template>
 
 <script>
+  import { ref } from 'vue'
 
-export default {
-  name: "SearchBar",
-  props: {
-    label: {
-      type: String,
-      default: "Søk"
+  export default {
+    name: " SearchBar",
+    props: {
+      label: {
+        type: String,
+        default: "Søk"
+      }
     },
-    modelValue: {
-      type: String,
-      default: ""
+    emits: ["search"],
+    setup() {
+      let query = ref("")
+
+      return {
+        query
+      }
     }
   }
-}
+
 </script>
 
 <style>
