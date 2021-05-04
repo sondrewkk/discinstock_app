@@ -1,18 +1,16 @@
 
-const fetchDiscs = async function() {
-  const headers = { "Content-Type": "application/json" };
-  const response = await fetch("http://127.0.0.1:8000/discs?skip=0&limit=50", headers);
-  const data = await response.json()
+import { getData } from './api'
 
-  return data
+const fetchDiscs = async function() {
+  
+  const discs = await getData("discs", "skip=0&limit=50");
+  return discs;
 }
 
 const searchDiscs = async function(discName) {
-  const headers = { "Content-Type": "application/json" };
-  const response = await fetch(`http://127.0.0.1:8000/discs/search/?name=${discName}`, headers);
-  const data = await response.json()
 
-  return data
+  const discs = await getData("discs/search", `name=${discName}`);
+  return discs;
 } 
 
 export { fetchDiscs, searchDiscs };

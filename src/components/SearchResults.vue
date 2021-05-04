@@ -35,7 +35,6 @@ export default {
     }
 
     const getDiscsByName = async () => {
-      console.log(`Searching for ${searchQuery.value}`)
       discs.value = await searchDiscs(searchQuery.value)
     }
 

@@ -1,5 +1,9 @@
 # build stage
 FROM node:lts-alpine as build-stage
+
+# NODE_ENV should always be set to production when using build command
+ENV NODE_ENV=production 
+
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
