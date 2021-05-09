@@ -1,6 +1,6 @@
 {
-  "name": "discinstock_app",
-  "version": "0.1.0",
+  "name": "discinstock.no",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
