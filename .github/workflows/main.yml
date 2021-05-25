@@ -19,9 +19,6 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
-    env:
-      VUE_APP_API_URL: https://api.discinstock.no
-
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - 
@@ -45,6 +42,12 @@ jobs:
         with: 
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }} 
+      -
+        name: Create .env file
+        run: |
+          touch .env
+          echo VUE_APP_API_URL="https://api.discinstock.no" >> .env
+          cat .env
       - 
         name: Build and push
         id: docker_build
