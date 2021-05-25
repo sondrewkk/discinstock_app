@@ -1,12 +1,11 @@
 <template>
-
   <div class="input-group mb-3">
     <input 
-      :v-bind="$attrs"
       v-model="query"
-      @keyup.enter="$emit('search', query)"
-      class="form-control form-control-lg" 
-    />
+      :v-bind="$attrs"
+      class="form-control form-control-lg"
+      @keyup.enter="$emit('search', query)" 
+    >
     <button 
       class="btn btn-lg btn-outline-secondary" 
       type="button"
@@ -15,14 +14,13 @@
       {{ label }}
     </button>
   </div>
-
 </template>
 
 <script>
   import { ref } from 'vue'
 
   export default {
-    name: " SearchBar",
+    name: "SearchBar",
     props: {
       label: {
         type: String,

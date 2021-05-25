@@ -1,28 +1,27 @@
 <template>
-
   <div class="container py-3">
     <header class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
-      <img   src="@/assets/discinstock_logo.png">
+      <img src="@/assets/discinstock_logo.png">
     </header>
 
     <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
-      <p class="fs-5 text-muted">Sjekk om disken finnes på lager i en av nettbutikkene i Norge!</p>
+      <p class="fs-5 text-muted">
+        Sjekk om disken finnes på lager i en av nettbutikkene i Norge!
+      </p>
     </div>
     
     <div class="row justify-content-center">
       <div class="col-md-6 col-lg-6">
         <SearchBar
-         type="text"
-         label="Søk"
-         @search="searchQuery = $event"
+          type="text"
+          label="Søk"
+          @search="searchQuery = $event"
         />
-        
       </div> 
 
-      <SearchResults :searchQuery="searchQuery" />
+      <SearchResults :search-query="searchQuery" />
     </div>
   </div>
-
 </template>
 
 <script>
@@ -42,11 +41,6 @@ export default {
     return {
        searchQuery
     }
-  },
-  methods: {
-    // search(query) {
-    //   searchQuery = query
-    // }
   }
 }
 </script>
