@@ -47,9 +47,9 @@ jobs:
         run: |
           mkdir app
           cd app
-          touch .env
-          echo VUE_APP_API_URL="https://api.discinstock.no" >> .env
-          cat .env
+          touch .env.production
+          echo VUE_APP_API_URL="https://api.discinstock.no" >> .env.production
+          cat .env.production
       - 
         name: Build and push
         id: docker_build
