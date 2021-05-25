@@ -1,7 +1,10 @@
 <template>
-
-  <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
-    <div v-for="disc in discs" :key="disc._id" class="col">
+  <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4 mb-3">
+    <div 
+      v-for="disc in discs" 
+      :key="disc._id" 
+      class="col"
+    >
       <DiscCard 
         :name="disc.name"
         :image="disc.image"
@@ -11,6 +14,14 @@
     </div>
   </div>
 
+  <button 
+    type="button" 
+    class="btn btn-outline-secondary w-25"
+    :disabled="showMoreDisabled"
+    @click="getDiscs" 
+  >
+    Vis mer
+  </button>
 </template>
 
 <script>
@@ -21,17 +32,34 @@
 export default {
   name: "SearchResults",
   components: {
-    DiscCard
+    DiscCard,
   },
   props: {
-    searchQuery: String
+    searchQuery: String,
   },
   setup(props) {
     const { searchQuery } = toRefs(props)
 
+    let skip = ref(0)
+    let limit = ref(20)
+    let showMoreDisabled = ref(false)
+
     const discs = ref([])
     const getDiscs = async () => {
-      discs.value = await fetchDiscs()
+      const response = await fetchDiscs(skip.value, limit.value)
+      response.data.map(disc => discs.value.push(disc))
+      
+      if(response.pagination["next"] != null){ 
+        if(showMoreDisabled.value) {
+          showMoreDisabled.value = false
+        }
+
+        const params = new URL(response.pagination["next"]).searchParams
+        skip.value += parseInt(params.get("limit"))   
+      }
+      else {
+        showMoreDisabled.value = true
+      }
     }
 
     const getDiscsByName = async () => {
@@ -45,6 +73,7 @@ export default {
     return {
       discs,
       getDiscs,
+      showMoreDisabled,
     }
   }
 }
