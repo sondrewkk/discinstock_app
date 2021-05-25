@@ -2,7 +2,6 @@
 import { getData } from './api'
 
 const fetchDiscs = async function(skip, limit) {
-  console.log(`Fetch discs. skip=${skip} limit=${limit}`)
   const response = await getData("discs", `skip=${ skip }&limit=${ limit }`);
   const discs = response.data;
   const linkHeader = response.headers['link'];
@@ -28,7 +27,9 @@ const fetchDiscs = async function(skip, limit) {
 const searchDiscs = async function(discName) {
 
   const response = await getData("discs/search", `name=${discName}`);
-  return await response.json();
+  const discs = response.data;
+  
+  return discs;
 } 
 
 export { fetchDiscs, searchDiscs };
