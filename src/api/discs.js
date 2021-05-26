@@ -4,20 +4,10 @@ import { getData } from './api'
 const fetchDiscs = async function(skip, limit) {
   const response = await getData("discs", `skip=${ skip }&limit=${ limit }`);
   const discs = response.data;
-  const linkHeader = response.headers['link'];
-  const links = linkHeader.split(",");
-
-  const parsedlinks = links.map(link => {
-    link = link.split(";");
-    const url = link[0].match(/[^<]+(?=>)/)[0];
-    const rel = link[1].match(/[^="]+(?=")/)[0];
-    
-    return {"key": rel, "value": url};
-  });
-
-  const parsedLinksHash = Object.fromEntries(parsedlinks.map(link => [link.key, link.value]))
+  const parsedLinks = parseLinkHeader(response.headers['link'])
+  
   const discResponse = {
-    "pagination": parsedLinksHash,
+    "pagination": parsedLinks,
     "data": discs
   }
 
@@ -31,5 +21,25 @@ const searchDiscs = async function(discName) {
   
   return discs;
 } 
+
+const parseLinkHeader = (header) => {
+  if(header == null) {
+    console.error("No link header");
+    return {};
+  }
+    
+  const links = header.split(",");
+  const parsedlinks = links.map(link => {
+    link = link.split(";");
+    const url = link[0].match(/[^<]+(?=>)/)[0];
+    const rel = link[1].match(/[^="]+(?=")/)[0];
+    
+    return { "key": rel, "value": url };
+  });
+
+  const parsedLinksHash = Object.fromEntries(parsedlinks.map(link => [link.key, link.value]));
+
+  return parsedLinksHash;
+}
 
 export { fetchDiscs, searchDiscs };
