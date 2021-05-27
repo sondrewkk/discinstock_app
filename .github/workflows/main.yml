@@ -42,14 +42,6 @@ jobs:
         with: 
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }} 
-      -
-        name: Create .env file
-        run: |
-          mkdir app
-          cd app
-          touch .env.production
-          echo VUE_APP_API_URL="https://api.discinstock.no" >> .env.production
-          cat .env.production
       - 
         name: Build and push
         id: docker_build
@@ -60,6 +52,8 @@ jobs:
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/discinstock_app:latest  
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/buildx-cache
+          build-args: |
+            VUE_APP_API_URL=https://api.discinstock.no
       - 
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
