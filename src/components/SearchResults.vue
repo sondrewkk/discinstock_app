@@ -15,9 +15,9 @@
   </div>
 
   <button 
+    v-if="showMore"
     type="button" 
     class="btn btn-outline-secondary w-25"
-    :disabled="showMoreDisabled"
     @click="getDiscs" 
   >
     Vis mer
@@ -35,14 +35,17 @@ export default {
     DiscCard,
   },
   props: {
-    searchQuery: String,
+    searchQuery: {
+      type: String,
+      default: ""
+    },
   },
   setup(props) {
     const { searchQuery } = toRefs(props)
 
     let skip = ref(0)
     let limit = ref(20)
-    let showMoreDisabled = ref(false)
+    let showMore = ref(false)
 
     const discs = ref([])
     const getDiscs = async () => {
@@ -50,19 +53,19 @@ export default {
       response.data.map(disc => discs.value.push(disc))
       
       if(response.pagination["next"] != null){ 
-        if(showMoreDisabled.value) {
-          showMoreDisabled.value = false
-        }
+        console.log("Has pagination")
+        showMore.value = true
 
         const params = new URL(response.pagination["next"]).searchParams
         skip.value += parseInt(params.get("limit"))   
       }
       else {
-        showMoreDisabled.value = true
+        showMore.value = true
       }
     }
 
     const getDiscsByName = async () => {
+      showMore.value = false
       discs.value = await searchDiscs(searchQuery.value)
     }
 
@@ -73,7 +76,7 @@ export default {
     return {
       discs,
       getDiscs,
-      showMoreDisabled,
+      showMore,
     }
   }
 }
