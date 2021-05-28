@@ -1,7 +1,7 @@
 <template>
   <div class="container py-3">
     <header class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
-      <img src="@/assets/discinstock_logo.png">
+      <a href=""><img src="@/assets/discinstock_logo.png"></a>
     </header>
 
     <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
@@ -46,8 +46,16 @@ export default {
 </script>
 
 <style>
+  html {
+    height: 100%;
+  }
+
   body {
     background-image: linear-gradient(180deg, #eee, #fff 100px, #fff);
+    height: 100%;
+    margin: 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
   }
 
   .container {
