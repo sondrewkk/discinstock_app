@@ -53,7 +53,6 @@ export default {
       response.data.map(disc => discs.value.push(disc))
       
       if(response.pagination["next"] != null){ 
-        console.log("Has pagination")
         showMore.value = true
 
         const params = new URL(response.pagination["next"]).searchParams
