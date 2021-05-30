@@ -14,7 +14,6 @@
       <div class="col-md-6 col-lg-6">
         <SearchBar
           type="text"
-          label="Søk"
           @search="searchQuery = $event"
         />
       </div> 
