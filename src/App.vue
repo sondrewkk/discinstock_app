@@ -1,7 +1,7 @@
 <template>
   <div class="container py-3">
     <header class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
-      <a href=""><img src="@/assets/discinstock_logo.png"></a>
+      <a href=""><img src="@/assets/discinstock_logo.svg" height="60"></a>
     </header>
 
     <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
