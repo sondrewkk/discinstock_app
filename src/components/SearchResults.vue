@@ -42,13 +42,16 @@ export default {
   },
   setup(props) {
     const { searchQuery } = toRefs(props)
-
+    const discs = ref([])
     let skip = ref(0)
     let limit = ref(20)
     let showMore = ref(false)
 
-    const discs = ref([])
     const getDiscs = async () => {
+      if(skip.value == 0 && discs.value.length > 0) {
+        discs.value.length = 0
+      }
+
       const response = await fetchDiscs(skip.value, limit.value)
       response.data.map(disc => discs.value.push(disc))
       
@@ -65,22 +68,19 @@ export default {
 
     const getDiscsByName = async () => {
       showMore.value = false
+      skip.value = 0
       discs.value = await searchDiscs(searchQuery.value)
     }
 
-    onMounted(getDiscs)
+    onMounted(() =>  searchQuery.value.length > 0 ? getDiscsByName() : getDiscs())
 
-    watch(searchQuery, getDiscsByName)
+    watch(searchQuery, () => { searchQuery.value.length > 0 ? getDiscsByName() : getDiscs() })
 
     return {
       discs,
-      getDiscs,
       showMore,
+      getDiscs,
     }
   }
 }
 </script>
-
-<style>
-
-</style>

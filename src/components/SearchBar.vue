@@ -5,7 +5,7 @@
       v-model="query"
       :v-bind="$attrs"
       class="form-control border border-secondary border-end-0"
-      @keyup.enter="$emit('search', query)" 
+      @keyup.enter="onSearch" 
     >
     <!-- Trying to embedd a x-circle in the same input "highlight". Not able to do that yet -->
     <button
@@ -19,7 +19,7 @@
     <button 
       class="btn btn-outline-secondary" 
       type="button"
-      @click="$emit('search', query)" 
+      @click="onSearch" 
     >
       <BIconSearch />
     </button>
@@ -27,7 +27,8 @@
 </template>
 
 <script>
-  import { ref, computed } from 'vue'
+  import { ref, toRefs, computed } from 'vue'
+  import { useRouter } from 'vue-router'
   import { BIconXCircle, BIconSearch } from 'bootstrap-icons-vue'
   export default {
     name: "SearchBar",
@@ -35,20 +36,37 @@
       BIconXCircle,
       BIconSearch
     },
+    props: {
+      startQuery: {
+        type: String,
+        default: ""
+      },
+    },
     emits: ["search"],
-    setup() {
-      let query = ref("")
+    setup(props, { emit }) {
+      const router = useRouter()
+      const { startQuery } = toRefs(props)
+      let query = ref(startQuery.value)
+
       const showClearTextButton = computed(() => query.value.length > 0)
+
+      const onSearch = () => {
+        if(query.value.length == 0){
+          router.replace({ query: null })
+        }
+        else {
+          router.replace({ query: { name: query.value }})
+        }
+        
+        emit('search', query.value)
+      }
 
       return {
         query,
-        showClearTextButton
+        showClearTextButton,
+        onSearch
       }
     }
   }
 
 </script>
-
-<style>
- 
-</style>
