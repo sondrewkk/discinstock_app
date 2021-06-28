@@ -23,9 +23,12 @@
           @search="searchQuery = $event"
         />
       </div> 
+    </div>
 
+    <div class="row justify-content-center">
       <SearchResults :search-query="searchQuery" />
     </div>
+    
   </div>
 </template>
 
