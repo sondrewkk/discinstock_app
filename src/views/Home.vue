@@ -1,14 +1,5 @@
 <template>
   <div class="container py-3">
-    <header class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
-      <a href="/">
-        <img 
-          src="@/assets/discinstock_logo.svg" 
-          height="60"
-        >
-      </a>
-    </header>
-
     <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
       <p class="fs-5 text-muted">
         Sjekk om disken finnes på lager i en av nettbutikkene i Norge!
@@ -28,7 +19,6 @@
     <div class="row justify-content-center">
       <SearchResults :search-query="searchQuery" />
     </div>
-    
   </div>
 </template>
 
@@ -61,3 +51,15 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+
+  .pricing-header {
+    max-width: 700px;
+  }
+
+  .search-bar {
+    max-width: 700px;
+  }
+
+</style>
