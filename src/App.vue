@@ -41,13 +41,46 @@
   </nav>
 
   <router-view />
+
+  <footer class="bg-dark text-center text-white mt-5">
+    <div class="container p-4 pb-0">
+      <section class="mb-4">
+        <!-- Facebook -->
+        <a 
+          class="link-secondary" 
+          href="https://www.facebook.com/discinstock"
+        >
+          <p class="h4 mb-2"> 
+            <BIconFacebook /> 
+          </p>
+        </a>
+      </section>
+    </div>
+
+    <div 
+      class="text-center p-3" 
+      style="background-color: rgba(0, 0, 0, 0.2);"
+    >
+      © 2021 Copyright:
+      <a 
+        class="text-white" 
+        href="https://discinstock.no/"
+      >
+        Discinstock.no
+      </a>
+    </div>
+  </footer>
 </template>
 
 <script>
 import { useRouter } from 'vue-router'
+import { BIconFacebook } from 'bootstrap-icons-vue'
 
 export default {
   name: 'App',
+  components: {
+    BIconFacebook
+  },
   setup() {
     const router = useRouter()
     const routes = router.getRoutes()
