@@ -1,14 +1,14 @@
 <template>
   <div class="container-fluid">
-    <div class="d-flex flex-column align-items-center retailers mx-auto mt-5">
+    <div class="d-flex flex-sm-column flex-md-row align-items-md-center justify-content-evenly flex-wrap">
       <div
         v-for="retailer in retailers" 
         :key="retailer.name" 
-        class="mb-5"
+        class="m-5 p-2"
       >
         <a :href="retailer.link">
           <img 
-            class="img-fluid" 
+            class="retailer-logo" 
             :src="retailer.logo"
           >
         </a>
@@ -39,7 +39,8 @@ export default {
 </script>
 
 <style scoped>
-  .retailers {
-    max-width: 75%;
+  .retailer-logo {
+    max-height: 300px;
+    max-width: 350px;
   }
 </style>
