@@ -6,14 +6,12 @@
       </p>
     </div>
     
-    <div class="row justify-content-center">
-      <div class="col-md-6 col-lg-6">
-        <SearchBar
-          type="text"
-          :start-query="startQuery"
-          @search="searchQuery = $event"
-        />
-      </div> 
+    <div>
+      <SearchBar
+        type="text"
+        :start-query="startQuery"
+        @search="searchQuery = $event"
+      />
     </div>
 
     <div class="row justify-content-center">
