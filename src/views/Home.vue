@@ -7,24 +7,21 @@
     </div>
     
     <div>
-      <SearchBar
-        type="text"
-        :start-query="startQuery"
-        @search="searchQuery = $event"
-      />
+      <SearchBar v-model:searchBarInput="discName" />
     </div>
 
     <div class="row justify-content-center">
-      <SearchResults :search-query="searchQuery" />
+      <SearchResults :disc-name="discName" />
     </div>
   </div>
 </template>
 
 <script>
-import { ref } from 'vue'
-import { useRoute } from 'vue-router'
+
 import SearchBar from '../components/SearchBar'
 import SearchResults from '../components/SearchResults'
+import { onBeforeMount, ref } from 'vue'
+import useRouteQuery from '@/composables/useRouteQuery'
 
 export default {
   name: 'Home',
@@ -32,21 +29,16 @@ export default {
     SearchBar,
     SearchResults
   },
-  setup() {
-    const route = useRoute()
-    const startQuery = ref("")
-    
-    if("name" in route.query){
-      startQuery.value = route.query.name
-    }
+  setup(){
+    const discName = ref("")
+    const { getRouteQuery } = useRouteQuery(discName)
 
-    const searchQuery = ref(startQuery.value)
+    onBeforeMount(() => discName.value = getRouteQuery())
 
     return {
-      searchQuery,
-      startQuery
+      discName,
     }
-  }
+  },
 }
 </script>
 

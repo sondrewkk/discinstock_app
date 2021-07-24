@@ -1,5 +1,8 @@
 <template>
-  <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4 mb-3">
+  <div 
+    ref="resultsComponent"
+    class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4 mb-3"  
+  >
     <div 
       v-for="disc in discs" 
       :key="disc._id" 
@@ -12,21 +15,14 @@
         :retailer="disc.retailer"
       />
     </div>
-  </div>
-
-  <button 
-    v-if="showMore"
-    type="button" 
-    class="btn btn-outline-secondary w-25"
-    @click="getDiscs" 
-  >
-    Vis mer
-  </button>
+  </div> 
 </template>
 
 <script>
- import { ref, onMounted, watch, toRefs } from 'vue'
- import { fetchDiscs, searchDiscs } from '@/api/discs'
+ import { toRefs, ref } from 'vue'
+ import useDiscs from '@/composables/useDiscs'
+ import useDiscNameSearch from '@/composables/useDiscNameSearch'
+ import useDiscsAutoScroll from '@/composables/useDiscsAutoScroll'
  import DiscCard from './DiscCard'
 
 export default {
@@ -35,51 +31,22 @@ export default {
     DiscCard,
   },
   props: {
-    searchQuery: {
+    discName: {
       type: String,
       default: ""
-    },
+    }
   },
   setup(props) {
-    const { searchQuery } = toRefs(props)
-    const discs = ref([])
-    let skip = ref(0)
-    let limit = ref(20)
-    let showMore = ref(false)
+    const { discName } = toRefs(props)
+    const resultsComponent = ref(null)
 
-    const getDiscs = async () => {
-      if(skip.value == 0 && discs.value.length > 0) {
-        discs.value.length = 0
-      }
-
-      const response = await fetchDiscs(skip.value, limit.value)
-      response.data.map(disc => discs.value.push(disc))
-      
-      if(response.pagination["next"] != null){ 
-        showMore.value = true
-
-        const params = new URL(response.pagination["next"]).searchParams
-        skip.value += parseInt(params.get("limit"))   
-      }
-      else {
-        showMore.value = true
-      }
-    }
-
-    const getDiscsByName = async () => {
-      showMore.value = false
-      skip.value = 0
-      discs.value = await searchDiscs(searchQuery.value)
-    }
-
-    onMounted(() =>  searchQuery.value.length > 0 ? getDiscsByName() : getDiscs())
-
-    watch(searchQuery, () => { searchQuery.value.length > 0 ? getDiscsByName() : getDiscs() })
+    const { discs } = useDiscs()
+    const { discsMatchingNameSearch } = useDiscNameSearch(discName, discs)
+    const { discVisibleWithScroll } = useDiscsAutoScroll(resultsComponent, discsMatchingNameSearch)
 
     return {
-      discs,
-      showMore,
-      getDiscs,
+      discs: discVisibleWithScroll,
+      resultsComponent,
     }
   }
 }
