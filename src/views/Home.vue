@@ -7,7 +7,10 @@
     </div>
     
     <div>
-      <SearchBar v-model:searchBarInput="discName" />
+      <SearchBar 
+        v-model:searchBarInput="discName"
+        @clearInput="discName = ''"
+      />
     </div>
 
     <div class="row justify-content-center">
