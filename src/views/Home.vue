@@ -1,6 +1,6 @@
 <template>
   <div class="container py-3">
-    <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+    <div class="punshline p-3 pb-md-4 mx-auto text-center">
       <p class="fs-5 text-muted">
         Sjekk om disken finnes på lager i en av nettbutikkene i Norge!
       </p>
@@ -47,12 +47,8 @@ export default {
 
 <style scoped>
 
-  .pricing-header {
+  .punshline {
     max-width: 700px;
   }
-
-  .search-bar {
-    max-width: 700px;
-  }
-
+  
 </style>
