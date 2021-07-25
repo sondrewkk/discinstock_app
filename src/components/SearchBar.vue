@@ -8,12 +8,12 @@
         @input="$emit('update:searchBarInput', $event.target.value)"
       >
       <button 
-        class="btn border border-secondary border-start-0" 
+        class="btn border border-secondary border-start-0 bg-white" 
         type="button"
         @click="$emit('clearInput')"
       >
         <BIconXCircle 
-          class="mb-1" 
+          class="mb-1 bg-white" 
           v-if:="showClearTextButton" 
           aria-hidden="true" 
         />
