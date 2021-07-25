@@ -13,7 +13,7 @@
         @click="$emit('clearInput')"
       >
         <BIconXCircle 
-          class="mb-1 bg-white" 
+          class="mb-1 bg-white text-secondary" 
           v-if:="showClearTextButton" 
           aria-hidden="true" 
         />
