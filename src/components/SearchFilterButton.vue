@@ -6,6 +6,7 @@
       data-bs-toggle="offcanvas" 
       data-bs-target="#filterMenu" 
       aria-controls="filterMenu"
+      @click="$emit('clicked')"
     >
       Vis filter
     </button>  
@@ -154,7 +155,7 @@ export default {
       default: () => []
     },
   },
-  emits: ["update:retailerFilter", "update:brandFilter"],
+  emits: ["clicked", "update:retailerFilter", "update:brandFilter"],
   setup() {
     const retailersList = ref([])
     const checkedRetailers = ref([])

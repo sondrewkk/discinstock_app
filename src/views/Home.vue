@@ -15,6 +15,7 @@
       <SearchFilterButton
         v-model:retailerFilter="retailerFilter" 
         v-model:brandFilter="brandFilter"
+        @click="onFilterButtonClicked"
         class="mx-auto"
       />
     </div>
@@ -24,6 +25,7 @@
         :disc-name="discName" 
         :retailer-filter="retailerFilter"
         :brand-filter="brandFilter"
+        :resultViewResetTrigger="resetViewState"
       />
     </div>
   </div>
@@ -48,14 +50,22 @@ export default {
     const discName = ref("")
     const retailerFilter = ref([])
     const brandFilter = ref([])
+    const resetViewState = ref(false)
 
     const { getRouteQuery } = useRouteQuery(discName)
+    
+    const onFilterButtonClicked = () => {
+      resetViewState.value = !resetViewState.value
+    }
+    
     onBeforeMount(() => discName.value = getRouteQuery())
 
     return {
       discName,
       retailerFilter,
       brandFilter,
+      resetViewState,
+      onFilterButtonClicked,
     }
   },
 }

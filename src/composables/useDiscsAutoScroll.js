@@ -1,6 +1,6 @@
-import { computed, onBeforeMount, onUnmounted, ref } from "vue"
+import { computed, onBeforeMount, onUnmounted, ref, watch } from "vue"
 
-export default function useDiscsAutoScroll(resultsComponent, discs) {
+export default function useDiscsAutoScroll(resultsComponent, resultViewResetTrigger, discs) {
   const skip = ref(20)
   const limit = ref(20)
   let page = ref(1)
@@ -22,8 +22,14 @@ export default function useDiscsAutoScroll(resultsComponent, discs) {
     }
   }
 
+  const resetPageCount = () => {
+    limit.value = 20
+    page.value = 1
+  }
+
   onBeforeMount(() => window.addEventListener("scroll", handleScroll))
   onUnmounted(()   => window.removeEventListener("scroll", handleScroll))
+  watch(resultViewResetTrigger, resetPageCount)
 
   return {
     discVisibleWithScroll,

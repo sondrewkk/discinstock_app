@@ -46,15 +46,19 @@ export default {
       required: true,
       default: () => []
     },
+    resultViewResetTrigger: {
+      type: Boolean,
+      default: undefined,
+    }
   },
   setup(props) {
-    const { discName, retailerFilter, brandFilter } = toRefs(props)
+    const { discName, retailerFilter, brandFilter, resultViewResetTrigger } = toRefs(props)
     const resultsComponent = ref(null)
 
     const { discs } = useDiscs()
     const { discsMatchingNameSearch } = useDiscNameSearch(discName, discs)
     const { discsFiltered } = useDiscFilters(retailerFilter, brandFilter, discsMatchingNameSearch)
-    const { discVisibleWithScroll } = useDiscsAutoScroll(resultsComponent, discsFiltered)
+    const { discVisibleWithScroll } = useDiscsAutoScroll(resultsComponent, resultViewResetTrigger, discsFiltered)
 
     return {
       discs: discVisibleWithScroll,
