@@ -23,6 +23,7 @@
  import useDiscs from '@/composables/useDiscs'
  import useDiscNameSearch from '@/composables/useDiscNameSearch'
  import useDiscsAutoScroll from '@/composables/useDiscsAutoScroll'
+ import useDiscFilters from '@/composables/useDiscFilters'
  import DiscCard from './DiscCard'
 
 export default {
@@ -34,15 +35,26 @@ export default {
     discName: {
       type: String,
       default: ""
-    }
+    },
+    retailerFilter: {
+      type: Array,
+      required: true,
+      default: () => []
+    },
+    brandFilter: {
+      type: Array,
+      required: true,
+      default: () => []
+    },
   },
   setup(props) {
-    const { discName } = toRefs(props)
+    const { discName, retailerFilter, brandFilter } = toRefs(props)
     const resultsComponent = ref(null)
 
     const { discs } = useDiscs()
     const { discsMatchingNameSearch } = useDiscNameSearch(discName, discs)
-    const { discVisibleWithScroll } = useDiscsAutoScroll(resultsComponent, discsMatchingNameSearch)
+    const { discsFiltered } = useDiscFilters(retailerFilter, brandFilter, discsMatchingNameSearch)
+    const { discVisibleWithScroll } = useDiscsAutoScroll(resultsComponent, discsFiltered)
 
     return {
       discs: discVisibleWithScroll,

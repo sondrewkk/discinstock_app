@@ -6,15 +6,25 @@
       </p>
     </div>
     
-    <div>
-      <SearchBar 
+    <div class="d-flex flex-column justify-content-center">
+      <SearchBar
         v-model:searchBarInput="discName"
+        class="mb-4 w-75 mx-auto"
         @clearInput="discName = ''"
+      />
+      <SearchFilterButton
+        v-model:retailerFilter="retailerFilter" 
+        v-model:brandFilter="brandFilter"
+        class="mx-auto"
       />
     </div>
 
     <div class="row justify-content-center">
-      <SearchResults :disc-name="discName" />
+      <SearchResults 
+        :disc-name="discName" 
+        :retailer-filter="retailerFilter"
+        :brand-filter="brandFilter"
+      />
     </div>
   </div>
 </template>
@@ -23,6 +33,7 @@
 
 import SearchBar from '../components/SearchBar'
 import SearchResults from '../components/SearchResults'
+import SearchFilterButton from '@/components/SearchFilterButton'
 import { onBeforeMount, ref } from 'vue'
 import useRouteQuery from '@/composables/useRouteQuery'
 
@@ -30,23 +41,27 @@ export default {
   name: 'Home',
   components: {
     SearchBar,
-    SearchResults
+    SearchResults,
+    SearchFilterButton,
   },
-  setup(){
+  setup(){   
     const discName = ref("")
-    const { getRouteQuery } = useRouteQuery(discName)
+    const retailerFilter = ref([])
+    const brandFilter = ref([])
 
+    const { getRouteQuery } = useRouteQuery(discName)
     onBeforeMount(() => discName.value = getRouteQuery())
 
     return {
       discName,
+      retailerFilter,
+      brandFilter,
     }
   },
 }
 </script>
 
 <style scoped>
-
   .punshline {
     max-width: 700px;
   }

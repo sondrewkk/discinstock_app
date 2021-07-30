@@ -1,24 +1,22 @@
 <template>
-  <div class="d-flex flex-column align-items-center justify-content-center">
-    <div class="input-group input-group-lg search-bar">
-      <input 
-        class="form-control border border-secondary border-end-0"  
-        :value="searchBarInput"
-        type="text"
-        @input="$emit('update:searchBarInput', $event.target.value)"
-      >
-      <button 
-        class="btn border border-secondary border-start-0 bg-white" 
-        type="button"
-        @click="$emit('clearInput')"
-      >
-        <BIconXCircle 
-          class="mb-1 bg-white text-secondary" 
-          v-if:="showClearTextButton" 
-          aria-hidden="true" 
-        />
-      </button>
-    </div>
+  <div class="input-group input-group-lg search-bar">
+    <input 
+      class="form-control border border-secondary border-end-0"  
+      :value="searchBarInput"
+      type="text"
+      @input="$emit('update:searchBarInput', $event.target.value)"
+    >
+    <button 
+      class="btn border border-secondary border-start-0 bg-white" 
+      type="button"
+      @click="$emit('clearInput')"
+    >
+      <BIconXCircle 
+        class="mb-1 bg-white text-secondary" 
+        v-if:="showClearTextButton" 
+        aria-hidden="true" 
+      />
+    </button>
   </div>
 </template>
 
