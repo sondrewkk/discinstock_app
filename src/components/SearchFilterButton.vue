@@ -33,7 +33,7 @@
         />
       </div>
 
-      <div class="offcanvas-body">
+      <div class="d-flex flex-column offcanvas-body">
         <div 
           id="filterMenuOptions"
           class="accordion" 
@@ -134,6 +134,15 @@
             </div>
           </div>
         </div>
+
+        <!-- Reset filter button -->
+        <button 
+          class="btn btn-warning mx-auto mt-3" 
+          type="button"
+          @click="clearFilter"
+        >
+          Nullstill
+        </button>
       </div>
     </div>
   </div>
@@ -155,8 +164,8 @@ export default {
       default: () => []
     },
   },
-  emits: ["clicked", "update:retailerFilter", "update:brandFilter"],
-  setup() {
+  emits: ["clicked", "clearFilter", "update:retailerFilter", "update:brandFilter"],
+  setup(props, { emit }) {
     const retailersList = ref([])
     const checkedRetailers = ref([])
     const brandsList = ref([])
@@ -170,6 +179,12 @@ export default {
       brandsList.value = await fetchBrands()
     }
 
+    const clearFilter = () => {
+      checkedRetailers.value = []
+      checkedBrands.value = []
+      emit("clearFilter")
+    }
+
     onBeforeMount(getRetailers)
     onBeforeMount(getBrands)
 
@@ -178,6 +193,7 @@ export default {
       checkedRetailers,
       brandsList,
       checkedBrands,
+      clearFilter,
     }
   },
 }
