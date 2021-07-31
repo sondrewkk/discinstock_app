@@ -9,6 +9,7 @@
     <div class="d-flex flex-column justify-content-center">
       <SearchBar
         v-model:searchBarInput="discName"
+        placeholder="Disk navn"
         class="mb-4 w-75 mx-auto"
         @clearInput="discName = ''"
       />

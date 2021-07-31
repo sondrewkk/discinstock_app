@@ -4,6 +4,7 @@
       class="form-control border border-secondary border-end-0"  
       :value="searchBarInput"
       type="text"
+      :placeholder="placeholder"
       @input="$emit('update:searchBarInput', $event.target.value)"
     >
     <button 
@@ -34,6 +35,10 @@
         type: String,
         default: "",
       },
+      placeholder: {
+        type: String,
+        default: "",
+      }
     },
     emits: ["update:searchBarInput", "clearInput"],
     setup(props) {
