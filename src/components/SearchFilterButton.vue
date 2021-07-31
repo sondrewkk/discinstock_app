@@ -93,11 +93,11 @@
               class="accordion-header" 
             >
               <button 
-                class="accordion-button" 
+                class="accordion-button collapsed" 
                 type="button" 
                 data-bs-toggle="collapse" 
                 data-bs-target="#collapseBrand" 
-                aria-expanded="true" 
+                aria-expanded="false" 
                 aria-controls="collapseBrand"
               >
                 Merke
@@ -105,7 +105,7 @@
             </h2>
             <div 
               id="collapseBrand" 
-              class="accordion-collapse collapse show" 
+              class="accordion-collapse collapse" 
               aria-labelledby="brandHeader"
             >
               <div class="accordion-body">
