@@ -1,7 +1,7 @@
 <template>
-  <div class="d-flex">
+  <div>
     <button 
-      class="btn btn-secondary"
+      class="btn btn-secondary text-nowrap"
       type="button"
       data-bs-toggle="offcanvas" 
       data-bs-target="#filterMenu" 
