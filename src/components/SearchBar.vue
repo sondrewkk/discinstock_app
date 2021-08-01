@@ -55,13 +55,7 @@
 
 <style scoped>
   .search-bar {
-    max-width: 700px;
-  }
-
-  .center-block {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+    max-width: 600px;
   }
 
   .form-control, .btn {
