@@ -22,12 +22,13 @@
       </option>
     </select>
     <button 
-      class="btn btn-outline-secondary" 
+      class="btn border border-gray" 
       type="button"
       @click="toggleSortMode"
+      :disabled="selected === 'random'"
     >
-      <BIconSortAlphaDown v-if="sortModeState === 1" />
-      <BIconSortAlphaUpAlt v-else />
+      <BIconSortAlphaDown class="fs-4" v-if="sortModeState === 1" />
+      <BIconSortAlphaUpAlt class="fs-4" v-else />
     </button>
   </div>
 </template>

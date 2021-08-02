@@ -28,7 +28,7 @@ footer {
     height: 135px;
 }
 
-.form-control, .btn {
+.form-select, .btn {
     box-shadow: none !important;
     outline: none !important;
   }
