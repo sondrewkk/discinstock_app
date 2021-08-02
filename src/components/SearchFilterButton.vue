@@ -198,10 +198,3 @@ export default {
   },
 }
 </script>
-
-<style scoped>
-  .btn {
-    box-shadow: none !important;
-    outline: none !important;
-  }
-</style>

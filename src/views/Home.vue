@@ -9,12 +9,12 @@
     <SearchBar
       v-model:searchBarInput="discName"
       placeholder="Disk navn"
-      class="mx-auto mb-5 pb-md-4"
+      class="mx-auto"
       @clearInput="discName = ''"
     />
 
-    <div class="d-flex flex-column flex-md-row mx-3 pt-4 pt-md-5">
-      <div class="mx-auto mb-2 mx-md-5 ps-md-3">
+    <div class="d-flex mt-5 pt-sm-3 pt-lg-4">
+      <div class="mb-2 mx-auto">
         <SearchFilterButton
           v-model:retailerFilter="retailerFilter" 
           v-model:brandFilter="brandFilter"
@@ -22,7 +22,10 @@
           @clearFilter="onClearFilter"
         />
       </div>
-      <div class="sort-select flex-md-fill mb-2 ms-md-5">
+    </div>
+
+    <div class="d-flex mb-2 justify-content-sm-center justify-content-lg-end">
+      <div class="flex-fill mx-3 flex-sm-grow-0">
         <SearchResultSortSelect         
           v-model:sortMode="sortMode"
           v-model:selected="sortOptionSelected"
@@ -31,7 +34,7 @@
       </div>
     </div>
 
-    <div class="row justify-content-center negmargin">
+    <div class="row justify-content-center remove-top-gutter">
       <SearchResults 
         class="gy-4"
         :disc-name="discName" 
@@ -107,12 +110,8 @@ export default {
     max-width: 700px;
   }
 
-  .negmargin {
+  .remove-top-gutter {
     margin-top: -3rem !important;
-  }
-
-  .sort-select {
-    min-width: 40%;
   }
   
 </style>

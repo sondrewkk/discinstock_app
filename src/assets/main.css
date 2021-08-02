@@ -27,3 +27,8 @@ footer {
     width: 100%;
     height: 135px;
 }
+
+.form-control, .btn {
+    box-shadow: none !important;
+    outline: none !important;
+  }

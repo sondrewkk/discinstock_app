@@ -57,9 +57,4 @@
   .search-bar {
     max-width: 600px;
   }
-
-  .form-control, .btn {
-    box-shadow: none !important;
-    outline: none !important;
-}
 </style>
