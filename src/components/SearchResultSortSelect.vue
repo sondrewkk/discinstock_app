@@ -24,11 +24,17 @@
     <button 
       class="btn border border-gray" 
       type="button"
-      @click="toggleSortMode"
       :disabled="selected === 'random'"
+      @click="toggleSortMode"
     >
-      <BIconSortAlphaDown class="fs-4" v-if="sortModeState === 1" />
-      <BIconSortAlphaUpAlt class="fs-4" v-else />
+      <BIconSortAlphaDown 
+        v-if="sortModeState === 1" 
+        class="fs-4" 
+      />
+      <BIconSortAlphaUpAlt 
+        v-else 
+        class="fs-4" 
+      />
     </button>
   </div>
 </template>

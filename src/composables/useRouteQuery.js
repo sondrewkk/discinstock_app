@@ -9,6 +9,8 @@ export default function useRouteQuery(discName) {
     if ("name" in route.query) {
       return route.query.name;
     }
+
+    return ""
   }
 
   const onDiscNameChanged = () => {

@@ -24,6 +24,7 @@
  import useDiscNameSearch from '@/composables/useDiscNameSearch'
  import useDiscsAutoScroll from '@/composables/useDiscsAutoScroll'
  import useDiscFilters from '@/composables/useDiscFilters'
+ import useDiscSort from '@/composables/useDiscSort'
  import DiscCard from './DiscCard'
 
 export default {
@@ -48,17 +49,26 @@ export default {
     },
     resultViewResetTrigger: {
       type: Boolean,
-      default: undefined,
-    }
+      required: true
+    },
+    sortDiscsBy: {
+      type: String,
+      required: true,
+    },
+    sortMode: {
+      type: Number,
+      required: true,
+    },
   },
   setup(props) {
-    const { discName, retailerFilter, brandFilter, resultViewResetTrigger } = toRefs(props)
+    const { discName, retailerFilter, brandFilter, resultViewResetTrigger, sortDiscsBy, sortMode } = toRefs(props)
     const resultsComponent = ref(null)
 
     const { discs } = useDiscs()
     const { discsMatchingNameSearch } = useDiscNameSearch(discName, discs)
     const { discsFiltered } = useDiscFilters(retailerFilter, brandFilter, discsMatchingNameSearch)
-    const { discVisibleWithScroll } = useDiscsAutoScroll(resultsComponent, resultViewResetTrigger, discsFiltered)
+    const { discsSorted } = useDiscSort(sortDiscsBy, sortMode, discsFiltered)
+    const { discVisibleWithScroll } = useDiscsAutoScroll(resultsComponent, resultViewResetTrigger, discsSorted)
 
     return {
       discs: discVisibleWithScroll,

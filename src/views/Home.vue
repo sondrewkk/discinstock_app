@@ -41,6 +41,8 @@
         :retailer-filter="retailerFilter"
         :brand-filter="brandFilter"
         :result-view-reset-trigger="resetViewState"
+        :sort-discs-by="sortOptionSelected"
+        :sort-mode="sortMode"
       />
     </div>
   </div>
@@ -67,16 +69,17 @@ export default {
     const retailerFilter = ref([])
     const brandFilter = ref([])
     const resetViewState = ref(false)
-    const sortOptionSelected = ref("random")
+    const { getRouteQuery } = useRouteQuery(discName)
+    const sortOptionSelected = ref(getRouteQuery() === "" ? "random": "discname")
     const sortMode = ref(1)
     const sortOptions = ref([
-      { text: "Tilfeldig", value: "random" },
       { text: "Disk navn", value: "discname"},
       { text: "Butikk", value: "retailer" },
       { text: "Merke", value: "brand" },
+      { text: "Tilfeldig", value: "random" },
     ])
     
-    const { getRouteQuery } = useRouteQuery(discName)
+    
     
     const onFilterButtonClicked = () => {
       resetViewState.value = !resetViewState.value
