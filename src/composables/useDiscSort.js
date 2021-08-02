@@ -29,6 +29,7 @@ export default function useDiscSort(sortBy, sortMode, discs) {
     {
       console.log("rev")
       discsSorted.value.reverse()
+      currentSortMode.value = sortMode.value
     }
   }
 
