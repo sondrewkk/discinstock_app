@@ -15,6 +15,7 @@
       <a
         :href="url"
         class="stretched-link"
+        target="_blank"
       />
     </div>
   </div>
