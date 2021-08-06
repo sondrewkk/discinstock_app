@@ -22,7 +22,7 @@
       </option>
     </select>
     <button 
-      class="btn border border-gray" 
+      class="btn border border-gray text-secondary" 
       type="button"
       :disabled="selected === 'random'"
       @click="toggleSortMode"
@@ -63,7 +63,7 @@ export default {
       required: true
     }
   },
-  emits: ["update:selected", "update:sortMode"],
+  emits: ["update:selected", "update:sortMode", "change"],
   setup(props, { emit }) {
     const { sortMode, selected } = toRefs(props)
     const sortModeState = ref(sortMode.value)
@@ -72,11 +72,13 @@ export default {
     const toggleSortMode = () => {
       sortModeState.value *= -1
       emit("update:sortMode", sortModeState.value)
+      emit("change")
     }
 
     const onSelectChange = (event) => {
       const { value } = event.target
       emit("update:selected", value)
+      emit("change")
     }
 
     return {

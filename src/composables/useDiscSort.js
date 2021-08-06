@@ -11,8 +11,6 @@ export default function useDiscSort(selectedSortMethod, sortMode, discs) {
                         break 
       case "retailer" : discsSorted.value = sortBy("retailer")
                         break
-      case "brand"    : discsSorted.value = sortBy("brand")
-                        break
       default         : discsSorted.value = discs.value
     }
   }

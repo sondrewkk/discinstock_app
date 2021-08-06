@@ -30,6 +30,7 @@
           v-model:sortMode="sortMode"
           v-model:selected="sortOptionSelected"
           :sort-options="sortOptions"
+          @change="onSortChange"
         />
       </div>
     </div>
@@ -76,7 +77,6 @@ export default {
       { text: "Tilfeldig", value: "random" },
       { text: "Disk navn", value: "discname"},
       { text: "Butikk", value: "retailer" },
-      { text: "Merke", value: "brand" },
     ])
     
     
@@ -88,6 +88,10 @@ export default {
     const onClearFilter = () => {
       retailerFilter.value = []
       brandFilter.value = []
+      resetViewState.value = !resetViewState.value
+    }
+
+    const onSortChange = () => {
       resetViewState.value = !resetViewState.value
     }
 
@@ -103,6 +107,7 @@ export default {
       sortOptionSelected,
       onFilterButtonClicked,
       onClearFilter,
+      onSortChange,
     }
   },
 }
