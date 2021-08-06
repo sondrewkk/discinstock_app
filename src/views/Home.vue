@@ -73,10 +73,10 @@ export default {
     const sortOptionSelected = ref(getRouteQuery() === "" ? "random": "discname")
     const sortMode = ref(1)
     const sortOptions = ref([
+      { text: "Tilfeldig", value: "random" },
       { text: "Disk navn", value: "discname"},
       { text: "Butikk", value: "retailer" },
       { text: "Merke", value: "brand" },
-      { text: "Tilfeldig", value: "random" },
     ])
     
     

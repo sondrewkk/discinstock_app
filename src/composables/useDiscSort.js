@@ -1,36 +1,26 @@
 import { ref, watch } from 'vue'
 
-export default function useDiscSort(sortBy, sortMode, discs) {
+export default function useDiscSort(selectedSortMethod, sortMode, discs) {
   let discsSorted = ref([])
-  let currentSortMode = ref(sortMode.value)
 
   const sortDiscs = () => {
-    console.log(`sort by: ${sortBy.value} | sort mode: ${sortMode.value}`)
-    
-    switch(sortBy.value){
+    switch(selectedSortMethod.value){
       case "random"   : discsSorted.value = shuffleArray(discs.value)
                         break
-      case "discname" : discsSorted.value = discs.value.sort((a, b) => a.name.localeCompare(b.name))
+      case "discname" : discsSorted.value = sortBy("name")
                         break 
-      case "retailer" : discsSorted.value = discs.value.sort((a, b) => a.retailer.localeCompare(b.retailer))
+      case "retailer" : discsSorted.value = sortBy("retailer")
                         break
-      case "brand"    : discsSorted.value = discs.value.sort((a, b) => a.brand.localeCompare(b.brand))
+      case "brand"    : discsSorted.value = sortBy("brand")
                         break
       default         : discsSorted.value = discs.value
     }
-
-    applySortMode()
   }
 
-  const applySortMode = () => {
-    console.log("Sort mode changed")
-
-    if(currentSortMode.value != sortMode.value)
-    {
-      console.log("rev")
-      discsSorted.value.reverse()
-      currentSortMode.value = sortMode.value
-    }
+  const sortBy = (key) => {
+    return discs.value.sort(
+      (a, b) => sortMode.value > 0 ? a[key].localeCompare(b[key]) : b[key].localeCompare(a[key])
+    )
   }
 
   const shuffleArray = (array) => {
@@ -52,8 +42,8 @@ export default function useDiscSort(sortBy, sortMode, discs) {
   }
 
   watch(discs, sortDiscs)
-  watch(sortBy, sortDiscs)
-  watch(sortMode, applySortMode)
+  watch(selectedSortMethod, sortDiscs)
+  watch(sortMode, sortDiscs)
 
   return {
     discsSorted
