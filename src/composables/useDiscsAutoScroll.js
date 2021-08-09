@@ -13,7 +13,6 @@ export default function useDiscsAutoScroll(resultsComponent, resultViewResetTrig
   const handleScroll = async () => {
 
     if (discs.value.length > 0) {
-      console.log("Handle scroll")
       const element = resultsComponent.value
       const trigger = element.getBoundingClientRect().bottom
   
