@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@popperjs/core": "^2.9.2",
+    "@vueform/slider": "^2.0.4",
     "axios": "^0.21.1",
     "bootstrap": "^5.0.0-beta3",
     "bootstrap-icons-vue": "^0.7.0",
