@@ -11,6 +11,8 @@ export default function useDiscSort(selectedSortMethod, sortMode, discs) {
                         break 
       case "retailer" : discsSorted.value = sortBy("retailer")
                         break
+      case "price"    : discsSorted.value = sortNumber(discs.value)
+                        break
       default         : discsSorted.value = discs.value
     }
   }
@@ -37,6 +39,12 @@ export default function useDiscSort(selectedSortMethod, sortMode, discs) {
     }
 
     return array
+  }
+
+  const sortNumber = () => {
+    return discs.value.sort(
+      (a, b) => sortMode.value > 0 ? a.price - b.price : b.price - a.price
+    )
   }
 
   watch(discs, sortDiscs)

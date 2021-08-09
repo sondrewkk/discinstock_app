@@ -18,6 +18,7 @@
         <SearchFilterButton
           v-model:retailerFilter="retailerFilter" 
           v-model:brandFilter="brandFilter"
+          v-model:priceRangeFilter="priceRangeFilter"
           @click="onFilterButtonClicked"
           @clearFilter="onClearFilter"
         />
@@ -41,6 +42,7 @@
         :disc-name="discName" 
         :retailer-filter="retailerFilter"
         :brand-filter="brandFilter"
+        :price-range-filter="priceRangeFilter"
         :result-view-reset-trigger="resetViewState"
         :sort-discs-by="sortOptionSelected"
         :sort-mode="sortMode"
@@ -69,6 +71,7 @@ export default {
     const discName = ref("")
     const retailerFilter = ref([])
     const brandFilter = ref([])
+    const priceRangeFilter = ref([0, 500])
     const resetViewState = ref(false)
     const { getRouteQuery } = useRouteQuery(discName)
     const sortOptionSelected = ref(getRouteQuery() === "" ? "random": "discname")
@@ -77,6 +80,7 @@ export default {
       { text: "Tilfeldig", value: "random" },
       { text: "Disk navn", value: "discname"},
       { text: "Butikk", value: "retailer" },
+      { text: "Pris", value: "price" },
     ])
     
     
@@ -88,6 +92,7 @@ export default {
     const onClearFilter = () => {
       retailerFilter.value = []
       brandFilter.value = []
+      priceRangeFilter.value = [0, 500]
       resetViewState.value = !resetViewState.value
     }
 
@@ -101,6 +106,7 @@ export default {
       discName,
       retailerFilter,
       brandFilter,
+      priceRangeFilter,
       resetViewState,
       sortOptions,
       sortMode,

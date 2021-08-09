@@ -1,5 +1,6 @@
 <template>
   <div 
+    v-if="discs.length > 0"
     ref="resultsComponent"
     class="row row-cols-2 row-cols-md-3 row-cols-lg-4"  
   >
@@ -13,9 +14,14 @@
         :image="disc.image"
         :url="disc.url"
         :retailer="disc.retailer"
+        :price="disc.price"
+        :brand="disc.brand"
       />
     </div>
   </div> 
+  <div v-else>
+    <span>Fant desverre ingen resultater</span>
+  </div>
 </template>
 
 <script>
@@ -47,6 +53,11 @@ export default {
       required: true,
       default: () => []
     },
+    priceRangeFilter: {
+      type: Array,
+      required: true,
+      default: () => [],
+    },
     resultViewResetTrigger: {
       type: Boolean,
       required: true
@@ -61,12 +72,20 @@ export default {
     },
   },
   setup(props) {
-    const { discName, retailerFilter, brandFilter, resultViewResetTrigger, sortDiscsBy, sortMode } = toRefs(props)
-    const resultsComponent = ref(null)
+    const { 
+      discName, 
+      retailerFilter, 
+      brandFilter, 
+      priceRangeFilter, 
+      resultViewResetTrigger, 
+      sortDiscsBy, 
+      sortMode 
+    } = toRefs(props)
 
+    const resultsComponent = ref(null)
     const { discs } = useDiscs()
     const { discsMatchingNameSearch } = useDiscNameSearch(discName, discs)
-    const { discsFiltered } = useDiscFilters(retailerFilter, brandFilter, discsMatchingNameSearch)
+    const { discsFiltered } = useDiscFilters(retailerFilter, brandFilter, priceRangeFilter, discsMatchingNameSearch)
     const { discsSorted } = useDiscSort(sortDiscsBy, sortMode, discsFiltered)
     const { discVisibleWithScroll } = useDiscsAutoScroll(resultsComponent, resultViewResetTrigger, discsSorted)
 

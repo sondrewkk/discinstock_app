@@ -133,6 +133,14 @@
               </div>
             </div>
           </div>
+
+          <!-- Price -->
+          <div class="my-5 pt-5 mx-4">
+            <PriceRange 
+              v-model:priceRange="selectedPriceRange" 
+              @priceChange="$emit('update:priceRangeFilter', selectedPriceRange)" 
+            />
+          </div>
         </div>
 
         <!-- Reset filter button -->
@@ -149,11 +157,15 @@
 </template>
 
 <script>
-import { ref, onBeforeMount } from 'vue'
+import { ref, toRefs, onBeforeMount } from 'vue'
 import { fetchRetailers } from '@/api/retailers'
 import { fetchBrands } from '@/api/brands'
+import PriceRange from '@/components/PriceRange'
 
 export default {
+  components: {
+    PriceRange
+  },
   props: {
     retailerFilter: {
       type: Array,
@@ -163,13 +175,20 @@ export default {
       type: Array,
       default: () => []
     },
+    priceRangeFilter: {
+      type: Array,
+      default: () => [],
+    }
   },
-  emits: ["clicked", "clearFilter", "update:retailerFilter", "update:brandFilter"],
+  emits: ["clicked", "clearFilter", "update:retailerFilter", "update:brandFilter", "update:priceRangeFilter"],
   setup(props, { emit }) {
+    const { priceRangeFilter } = toRefs(props)
+
     const retailersList = ref([])
     const checkedRetailers = ref([])
     const brandsList = ref([])
     const checkedBrands = ref([])
+    const selectedPriceRange = ref(priceRangeFilter.value)
 
     const getRetailers = async () => {
       retailersList.value = await fetchRetailers()
@@ -182,6 +201,7 @@ export default {
     const clearFilter = () => {
       checkedRetailers.value = []
       checkedBrands.value = []
+      selectedPriceRange.value = [0, 500]
       emit("clearFilter")
     }
 
@@ -193,6 +213,7 @@ export default {
       checkedRetailers,
       brandsList,
       checkedBrands,
+      selectedPriceRange,
       clearFilter,
     }
   },

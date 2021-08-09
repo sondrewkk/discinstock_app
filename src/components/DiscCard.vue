@@ -5,19 +5,25 @@
       class="card-img-top p-1"
       :alt="name"
     >
-    <div class="card-body py-1">
-      <h6 class="card-title">
-        {{ name }}
-      </h6>
-      <h6 class="card-subtitle mb-2 text-muted">
-        {{ retailer }}
-      </h6>
-      <a
-        :href="url"
-        class="stretched-link"
-        target="_blank"
-      />
+    <div class="card-body">
+      <div class="d-flex flex-column align-items-center text-center h-100">
+        <span class="fs-5">{{ name }}</span>
+        <h6 class="text-muted font-monospace h-100">
+          {{ brand }}
+        </h6>
+        <span class="flex-shrink-1 display-6 mt-1">{{ price }},-</span>
+      </div>
     </div>
+    <div class="card-footer">
+      <div class="d-flex">
+        <span class="mx-auto text-muted">{{ retailer }}</span>
+      </div>
+    </div>
+    <a 
+      :href="url" 
+      class="stretched-link"
+      target="_blank" 
+    />
   </div>
 </template>
 
@@ -28,33 +34,44 @@ export default {
   props: {
     name: {
       type: String,
-      required: true
+      required: true,
     },
     image: {
       type: String,
-      required: true
+      required: true,
     },
     url: {
       type: String,
-      required: true
+      required: true,
     },
     retailer: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
+    price: {
+      type: Number,
+      default: 999,
+      required: true,
+    },
+    brand: {
+      type: String,
+      default: "",
+      required: true,
+    },
   }
 }
 
 </script>
 
-<style>
-.card {
-  max-width: 300px;
-}
+<style scoped>
+  img {
+    width: 100%;
+    height: 21vh;
+    object-fit: contain;
+  }
+   
+  .card {
+    max-width: 300px;
+  }
 
-.card-img-top {
-  width: 100%;
-  height: 20vh;
-  object-fit: contain;
-}
 </style>
