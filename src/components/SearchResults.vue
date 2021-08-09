@@ -19,8 +19,11 @@
       />
     </div>
   </div> 
-  <div v-else>
-    <span>Fant desverre ingen resultater</span>
+  <div 
+    v-else
+    class="d-flex flex-column align-items-center mt-5 pt-5"
+  >
+    <span class="fs-4 mt-4">Fant dessverre ingen disker</span>
   </div>
 </template>
 

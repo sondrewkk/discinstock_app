@@ -1,5 +1,5 @@
 <template>
-  <div class="container py-3">
+  <div class="container pt-3">
     <div class="punshline p-3 pb-md-4 mx-auto text-center">
       <p class="fs-5 text-muted">
         Sjekk om disken finnes på lager i en av nettbutikkene i Norge!
