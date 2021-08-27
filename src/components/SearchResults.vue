@@ -23,7 +23,10 @@
     v-else
     class="d-flex flex-column align-items-center mt-5 pt-5"
   >
-    <span class="fs-4 mt-4">Fant dessverre ingen disker</span>
+    <div v-if="loading" class="spinner-border spinner-border-lg text-secondary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <span v-else class="fs-4 mt-4">Fant dessverre ingen disker</span>
   </div>
 </template>
 
@@ -85,14 +88,17 @@ export default {
       sortMode 
     } = toRefs(props)
 
+    const loading = ref(true)
+
     const resultsComponent = ref(null)
-    const { discs } = useDiscs()
+    const { discs } = useDiscs(loading)
     const { discsMatchingNameSearch } = useDiscNameSearch(discName, discs)
     const { discsFiltered } = useDiscFilters(retailerFilter, brandFilter, priceRangeFilter, discsMatchingNameSearch)
     const { discsSorted } = useDiscSort(sortDiscsBy, sortMode, discsFiltered)
     const { discVisibleWithScroll } = useDiscsAutoScroll(resultsComponent, resultViewResetTrigger, discsSorted)
 
     return {
+      loading,
       discs: discVisibleWithScroll,
       resultsComponent,
     }
