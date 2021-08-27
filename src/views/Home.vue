@@ -78,9 +78,10 @@ export default {
     const sortMode = ref(1)
     const sortOptions = ref([
       { text: "Tilfeldig", value: "random" },
-      { text: "Disk navn", value: "discname"},
+      { text: "Disk navn", value: "discname" },
       { text: "Butikk", value: "retailer" },
       { text: "Pris", value: "price" },
+      { text: "Sist oppdatert", value: "updated" },
     ])
     
     

@@ -16,6 +16,7 @@
         :retailer="disc.retailer"
         :price="disc.price"
         :brand="disc.brand"
+        :last-updated="new Date(disc.last_updated)"
       />
     </div>
   </div> 
@@ -23,10 +24,19 @@
     v-else
     class="d-flex flex-column align-items-center mt-5 pt-5"
   >
-    <div v-if="loading" class="spinner-border spinner-border-lg text-secondary" role="status">
+    <div 
+      v-if="loading" 
+      class="spinner-border spinner-border-lg text-secondary" 
+      role="status"
+    >
       <span class="visually-hidden">Loading...</span>
     </div>
-    <span v-else class="fs-4 mt-4">Fant dessverre ingen disker</span>
+    <span 
+      v-else 
+      class="fs-4 mt-4"
+    >
+      Fant dessverre ingen disker
+    </span>
   </div>
 </template>
 

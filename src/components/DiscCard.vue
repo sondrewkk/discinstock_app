@@ -15,8 +15,9 @@
       </div>
     </div>
     <div class="card-footer">
-      <div class="d-flex">
-        <span class="mx-auto text-muted">{{ retailer }}</span>
+      <div class="d-flex flex-column">
+        <span class="mx-auto">{{ retailer }}</span>
+        <span class="mx-auto text-muted">{{ dateFormated }}</span>  
       </div>
     </div>
     <a 
@@ -28,6 +29,8 @@
 </template>
 
 <script>
+import { toRefs, ref } from '@vue/reactivity'
+import { DateTime } from 'luxon'
 
 export default {
   name: "DiscCard",
@@ -58,7 +61,22 @@ export default {
       default: "",
       required: true,
     },
-  }
+    lastUpdated: {
+      type: Date,
+      default: Date,
+      required: true,
+    },
+  },
+  setup(props) {
+    const { lastUpdated } = toRefs(props)
+    const dt = DateTime.fromISO(lastUpdated.value.toISOString())
+    const dateFormated = ref(dt.toFormat("dd.LL.yy HH:mm"))
+
+    return {
+      dateFormated,
+    }
+
+  },
 }
 
 </script>

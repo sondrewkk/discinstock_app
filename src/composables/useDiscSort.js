@@ -13,6 +13,8 @@ export default function useDiscSort(selectedSortMethod, sortMode, discs) {
                         break
       case "price"    : discsSorted.value = sortNumber(discs.value)
                         break
+      case "updated"  : discsSorted.value = sortDatetime(discs.value)
+                        break
       default         : discsSorted.value = discs.value
     }
   }
@@ -41,9 +43,20 @@ export default function useDiscSort(selectedSortMethod, sortMode, discs) {
     return array
   }
 
-  const sortNumber = () => {
-    return discs.value.sort(
+  const sortNumber = (array) => {
+    return array.sort(
       (a, b) => sortMode.value > 0 ? a.price - b.price : b.price - a.price
+    )
+  }
+
+  const sortDatetime = (array) => {
+    return array.sort(
+      (a, b) => {
+        const firstDate = new Date(a.last_updated).getTime()
+        const secondDate = new Date(b.last_updated).getTime()
+
+        return sortMode.value > 0 ? firstDate - secondDate : secondDate - firstDate
+      }
     )
   }
 
