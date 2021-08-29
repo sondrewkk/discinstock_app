@@ -69,7 +69,10 @@ export default {
   },
   setup(props) {
     const { lastUpdated } = toRefs(props)
-    const dt = DateTime.fromISO(lastUpdated.value.toISOString())
+
+    const isoDate = lastUpdated.value.toISOString()
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone
+    const dt = DateTime.fromISO(isoDate, {zone: tz})
     const dateFormated = ref(dt.toFormat("dd.LL.yy HH:mm"))
 
     return {
