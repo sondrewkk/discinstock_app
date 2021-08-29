@@ -52,8 +52,8 @@ export default function useDiscSort(selectedSortMethod, sortMode, discs) {
   const sortDatetime = (array) => {
     return array.sort(
       (a, b) => {
-        const firstDate = new Date(a.last_updated).getTime()
-        const secondDate = new Date(b.last_updated).getTime()
+        const firstDate = new Date(b.last_updated).getTime()
+        const secondDate = new Date(a.last_updated).getTime()
 
         return sortMode.value > 0 ? firstDate - secondDate : secondDate - firstDate
       }
