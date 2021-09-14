@@ -125,7 +125,8 @@ export default {
     const dt = DateTime.fromISO(isoDate, {zone: tz})
     const dateFormated = ref(dt.toFormat("dd.LL.yy HH:mm"))
 
-    const hasFlightSpec = computed(() => speed.value && glide.value && turn.value && fade.value)
+    const hasFlightSpec = computed(() => speed.value != null && glide.value != null && turn.value != null && fade.value != null)
+    
     return {
       dateFormated,
       hasFlightSpec,
