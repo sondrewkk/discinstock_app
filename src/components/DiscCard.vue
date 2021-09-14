@@ -1,10 +1,44 @@
 <template>
   <div class="card h-100">
-    <img
-      :src="image"
-      class="card-img-top p-1"
-      :alt="name"
-    >
+    <div class="card-img-top position-relative">
+      <img
+        :src="image"
+        class="p-1"
+        :alt="name"
+      >
+      <div 
+        v-if="hasFlightSpec" 
+        class="position-absolute bottom-0 start-50 translate-middle-x w-100 px-2 px-sm-3"
+      >
+        <div class="d-flex justify-content-center text-center">
+          <div 
+            class="p-2 flex-even fs-6 fw-bold text-nowrap rounded-start" 
+            style="background-color: #C0D6DF"
+          >
+            {{ speed }}
+          </div>
+          <div 
+            class="p-2 flex-even fs-6 fw-bold text-nowrap" 
+            style="background-color: #ECEDED"
+          >
+            {{ glide }}
+          </div>
+          <div 
+            class="p-2 flex-even fs-6 fw-bold text-nowrap" 
+            style="background-color: #B2B9A9"
+          >
+            {{ turn }}
+          </div>
+          <div 
+            class="p-2 flex-even fs-6 fw-bold text-nowrap rounded-end" 
+            style="background-color: #CDE1CF"
+          >
+            {{ fade }}
+          </div>
+        </div>
+      </div>
+    </div>
+    
     <div class="card-body">
       <div class="d-flex flex-column align-items-center text-center h-100">
         <span class="fs-5">{{ name }}</span>
@@ -29,7 +63,7 @@
 </template>
 
 <script>
-import { toRefs, ref } from '@vue/reactivity'
+import { toRefs, ref, computed } from '@vue/reactivity'
 import { DateTime } from 'luxon'
 
 export default {
@@ -61,6 +95,22 @@ export default {
       default: "",
       required: true,
     },
+    speed: {
+      type: Number,
+      default: null,
+    },
+    glide: {
+      type: Number,
+      default: null,
+    },
+    turn: {
+      type: Number,
+      default: null,
+    },
+    fade: {
+      type: Number,
+      default: null,
+    },
     lastUpdated: {
       type: Date,
       default: Date,
@@ -68,15 +118,17 @@ export default {
     },
   },
   setup(props) {
-    const { lastUpdated } = toRefs(props)
+    const { lastUpdated, speed, glide, turn, fade } = toRefs(props)
 
     const isoDate = lastUpdated.value.toISOString()
     const tz = Intl.DateTimeFormat().resolvedOptions().timeZone
     const dt = DateTime.fromISO(isoDate, {zone: tz})
     const dateFormated = ref(dt.toFormat("dd.LL.yy HH:mm"))
 
+    const hasFlightSpec = computed(() => speed.value && glide.value && turn.value && fade.value)
     return {
       dateFormated,
+      hasFlightSpec,
     }
 
   },
@@ -93,6 +145,11 @@ export default {
    
   .card {
     max-width: 300px;
+  }
+
+  .flex-even {
+    flex: 1 1 0;
+    width: 0;
   }
 
 </style>

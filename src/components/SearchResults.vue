@@ -16,6 +16,10 @@
         :retailer="disc.retailer"
         :price="disc.price"
         :brand="disc.brand"
+        :speed="disc.speed"
+        :glide="disc.glide"
+        :turn="disc.turn"
+        :fade="disc.fade"
         :last-updated="new Date(disc.last_updated)"
       />
     </div>
