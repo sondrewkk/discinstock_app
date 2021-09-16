@@ -121,8 +121,7 @@ export default {
     const { lastUpdated, speed, glide, turn, fade } = toRefs(props)
 
     const isoDate = lastUpdated.value.toISOString()
-    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone
-    const dt = DateTime.fromISO(isoDate, {zone: tz})
+    const dt = DateTime.fromISO(isoDate)
     const dateFormated = ref(dt.toFormat("dd.LL.yy HH:mm"))
 
     const hasFlightSpec = computed(() => speed.value != null && glide.value != null && turn.value != null && fade.value != null)
