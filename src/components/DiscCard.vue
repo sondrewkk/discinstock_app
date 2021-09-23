@@ -3,44 +3,34 @@
     <div class="card-img-top position-relative">
       <img
         :src="image"
-        class="p-1"
+        class="px-1 pt-1"
         :alt="name"
       >
-      <div 
-        v-if="hasFlightSpec" 
-        class="position-absolute bottom-0 start-50 translate-middle-x w-100 px-2 px-sm-3"
-      >
-        <div class="d-flex justify-content-center text-center">
-          <div 
-            class="p-2 flex-even fs-6 fw-bold text-nowrap rounded-start" 
-            style="background-color: #C0D6DF"
-          >
-            {{ speed }}
-          </div>
-          <div 
-            class="p-2 flex-even fs-6 fw-bold text-nowrap" 
-            style="background-color: #ECEDED"
-          >
-            {{ glide }}
-          </div>
-          <div 
-            class="p-2 flex-even fs-6 fw-bold text-nowrap" 
-            style="background-color: #B2B9A9"
-          >
-            {{ turn }}
-          </div>
-          <div 
-            class="p-2 flex-even fs-6 fw-bold text-nowrap rounded-end" 
-            style="background-color: #CDE1CF"
-          >
-            {{ fade }}
-          </div>
-        </div>
-      </div>
     </div>
     
     <div class="card-body">
       <div class="d-flex flex-column align-items-center text-center h-100">
+        <div 
+          v-if="hasFlightSpec" 
+        >
+          <div 
+            class="d-flex justify-content-center mb-1 text-white" 
+            style="height: 30px"
+          >
+            <div class="flight-spec h-100 me-1 rounded">
+              <p>{{ speed }}</p>
+            </div>
+            <div class="flight-spec h-100 me-1 rounded">
+              <p>{{ glide }}</p>
+            </div>
+            <div class="flight-spec h-100 me-1 rounded">
+              <p>{{ turn }}</p>
+            </div>
+            <div class="flight-spec h-100 me-1 rounded">
+              <p>{{ fade }}</p>
+            </div>
+          </div>
+        </div>
         <span class="fs-5">{{ name }}</span>
         <h6 class="text-muted font-monospace h-100">
           {{ brand }}
@@ -147,9 +137,15 @@ export default {
     max-width: 300px;
   }
 
-  .flex-even {
-    flex: 1 1 0;
-    width: 0;
+  .flight-spec {
+    background-color: #2DAD67;
+    min-width: 30px;
+    font-size: 1em;
+  }
+
+  .flight-spec p {
+    display: inline-block;
+    line-height: 30px;
   }
 
 </style>
