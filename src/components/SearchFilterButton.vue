@@ -45,11 +45,11 @@
               class="accordion-header" 
             >
               <button 
-                class="accordion-button" 
+                class="accordion-button collapsed" 
                 type="button" 
                 data-bs-toggle="collapse" 
                 data-bs-target="#collapseRetailer" 
-                aria-expanded="true" 
+                aria-expanded="false" 
                 aria-controls="collapseRetailer"
               >
                 Butikk
@@ -57,7 +57,7 @@
             </h2>
             <div 
               id="collapseRetailer" 
-              class="accordion-collapse collapse show" 
+              class="accordion-collapse collapse" 
               aria-labelledby="reatilerHeader"
             >
               <div class="accordion-body">
@@ -134,6 +134,126 @@
             </div>
           </div>
 
+          <!-- Speed -->
+          <div class="accordion-item">
+            <h2 
+              id="speedHeader"
+              class="accordion-header" 
+            >
+              <button 
+                class="accordion-button collapsed" 
+                type="button" 
+                data-bs-toggle="collapse" 
+                data-bs-target="#collapseSpeed" 
+                aria-expanded="false" 
+                aria-controls="collapseSpeed"
+              >
+                Speed
+              </button>
+            </h2>
+            <div 
+              id="collapseSpeed" 
+              class="accordion-collapse collapse" 
+              aria-labelledby="speedHeader"
+            >
+              <div class="accordion-body">
+                <FlightSpecPicker 
+                  v-model:flightSpecRange="selectedSpeedRange"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Glide -->
+          <div class="accordion-item">
+            <h2 
+              id="glideHeader"
+              class="accordion-header" 
+            >
+              <button 
+                class="accordion-button collapsed" 
+                type="button" 
+                data-bs-toggle="collapse" 
+                data-bs-target="#collapseGlide" 
+                aria-expanded="false" 
+                aria-controls="collapseGlide"
+              >
+                Glide
+              </button>
+            </h2>
+            <div 
+              id="collapseGlide" 
+              class="accordion-collapse collapse" 
+              aria-labelledby="glideHeader"
+            >
+              <div class="accordion-body">
+                <FlightSpecPicker 
+                  v-model:flightSpecRange="selectedGlideRange"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Turn -->
+          <div class="accordion-item">
+            <h2 
+              id="turnHeader"
+              class="accordion-header" 
+            >
+              <button 
+                class="accordion-button collapsed" 
+                type="button" 
+                data-bs-toggle="collapse" 
+                data-bs-target="#collapseTurn" 
+                aria-expanded="false" 
+                aria-controls="collapseTurn"
+              >
+                Turn
+              </button>
+            </h2>
+            <div 
+              id="collapseTurn" 
+              class="accordion-collapse collapse" 
+              aria-labelledby="turnHeader"
+            >
+              <div class="accordion-body">
+                <FlightSpecPicker 
+                  v-model:flightSpecRange="selectedTurnRange"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Fade -->
+          <div class="accordion-item">
+            <h2 
+              id="fadeHeader"
+              class="accordion-header" 
+            >
+              <button 
+                class="accordion-button collapsed" 
+                type="button" 
+                data-bs-toggle="collapse" 
+                data-bs-target="#collapseFade" 
+                aria-expanded="false" 
+                aria-controls="collapseFade"
+              >
+                Fade
+              </button>
+            </h2>
+            <div 
+              id="collapseFade" 
+              class="accordion-collapse collapse" 
+              aria-labelledby="fadeHeader"
+            >
+              <div class="accordion-body">
+                <FlightSpecPicker 
+                  v-model:flightSpecRange="selectedFadeRange"
+                />
+              </div>
+            </div>
+          </div>
+
           <!-- Price -->
           <div class="my-5 pt-5 mx-4">
             <PriceRange 
@@ -161,10 +281,12 @@ import { ref, toRefs, onBeforeMount } from 'vue'
 import { fetchRetailers } from '@/api/retailers'
 import { fetchBrands } from '@/api/brands'
 import PriceRange from '@/components/PriceRange'
+import FlightSpecPicker from '@/components/FlightSpecPicker'
 
 export default {
   components: {
-    PriceRange
+    PriceRange,
+    FlightSpecPicker,
   },
   props: {
     retailerFilter: {
@@ -189,6 +311,10 @@ export default {
     const brandsList = ref([])
     const checkedBrands = ref([])
     const selectedPriceRange = ref(priceRangeFilter.value)
+    const selectedSpeedRange = ref([1, 15])
+    const selectedGlideRange = ref([1, 7])
+    const selectedTurnRange = ref([-5, 1])
+    const selectedFadeRange = ref([1, 6])
 
     const getRetailers = async () => {
       retailersList.value = await fetchRetailers()
@@ -214,6 +340,12 @@ export default {
       brandsList,
       checkedBrands,
       selectedPriceRange,
+
+      selectedSpeedRange,
+      selectedGlideRange,
+      selectedTurnRange,
+      selectedFadeRange,
+
       clearFilter,
     }
   },
