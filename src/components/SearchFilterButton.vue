@@ -299,22 +299,49 @@ export default {
     },
     priceRangeFilter: {
       type: Array,
-      default: () => [],
-    }
+      default: () => [1, 2],
+    },
+    speedRangeFilter: {
+      type: Array,
+      default: () => [1, 2],
+    },
+    glideRangeFilter: {
+      type: Array,
+      default: () => [1, 2],
+    },
+    turnRangeFilter: {
+      type: Array,
+      default: () => [1, 2],
+    },
+    fadeRangeFilter: {
+      type: Array,
+      default: () => [1, 2],
+    },
   },
-  emits: ["clicked", "clearFilter", "update:retailerFilter", "update:brandFilter", "update:priceRangeFilter"],
+  emits: ["clicked", "clearFilter", "update:retailerFilter", "update:brandFilter", "update:priceRangeFilter", "update:speedRangeFilter", "update:glideRangeFilter", "update:turnRangeFilter", "update:fadeRangeFilter"],
   setup(props, { emit }) {
-    const { priceRangeFilter } = toRefs(props)
+    const { retailerFilter, brandsFilter, priceRangeFilter, speedRangeFilter, glideRangeFilter, turnRangeFilter, fadeRangeFilter } = toRefs(props)
 
     const retailersList = ref([])
-    const checkedRetailers = ref([])
+    const checkedRetailers = ref([...retailerFilter.value])
+
     const brandsList = ref([])
-    const checkedBrands = ref([])
+    const checkedBrands = ref(...brandsFilter.value)
+
     const selectedPriceRange = ref(priceRangeFilter.value)
-    const selectedSpeedRange = ref([1, 15])
-    const selectedGlideRange = ref([1, 7])
-    const selectedTurnRange = ref([-5, 1])
-    const selectedFadeRange = ref([1, 6])
+    const defaultPriceRange = [...priceRangeFilter.value]
+
+    const selectedSpeedRange = ref(speedRangeFilter.value)
+    const defaultSpeedRange = [...speedRangeFilter.value]
+
+    const selectedGlideRange = ref(glideRangeFilter.value)
+    const defaultGlideRange = [...glideRangeFilter.value]
+
+    const selectedTurnRange = ref(turnRangeFilter.value)
+    const defaultTurnRange = [...turnRangeFilter.value]
+
+    const selectedFadeRange = ref(fadeRangeFilter.value)
+    const defaultFadeRange = [...fadeRangeFilter.value]
 
     const getRetailers = async () => {
       retailersList.value = await fetchRetailers()
@@ -327,7 +354,18 @@ export default {
     const clearFilter = () => {
       checkedRetailers.value = []
       checkedBrands.value = []
-      selectedPriceRange.value = [0, 500]
+      selectedPriceRange.value = [...defaultPriceRange]
+      selectedSpeedRange.value = [...defaultSpeedRange]
+      selectedGlideRange.value = [...defaultGlideRange]
+      selectedTurnRange.value = [...defaultTurnRange]
+      selectedFadeRange.value = [...defaultFadeRange]
+
+      emit("update:retailerFilter", checkedRetailers.value)
+      emit("update:brandFilter", checkedBrands.value)
+      emit("update:priceRangeFilter", selectedPriceRange.value)
+      emit("update:speedRangeFilter", selectedSpeedRange.value)
+      emit("update:turnRangeFilter", selectedTurnRange.value)
+      emit("update:fadeRangeFilter", selectedFadeRange.value)
       emit("clearFilter")
     }
 
@@ -340,12 +378,10 @@ export default {
       brandsList,
       checkedBrands,
       selectedPriceRange,
-
       selectedSpeedRange,
       selectedGlideRange,
       selectedTurnRange,
       selectedFadeRange,
-
       clearFilter,
     }
   },

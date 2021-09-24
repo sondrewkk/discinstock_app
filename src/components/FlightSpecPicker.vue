@@ -4,13 +4,13 @@
   <div class="d-flex row justify-content-center">
     <div class="d-flex justify-content-center">
       <input 
-        v-model="fromInput"
+        v-model.number="fromInput"
         class="w-25" 
         @change="onFromInputChanged"
       >
       <span class="mx-3">-</span>
       <input 
-        v-model="toInput"
+        v-model.number="toInput"
         class="w-25" 
         @change="onToInputChanged"
       >
@@ -38,7 +38,7 @@ export default {
   props: {
     flightSpecRange: {
       type: Array,
-      default: () => [],
+      default: () => [1, 2],
     },
   },
   emits: ["update:flightSpecRange"],
@@ -57,7 +57,7 @@ export default {
     }
 
     const onFromInputChanged = () => {
-      const input = parseInt(fromInput.value)
+      const input = fromInput.value
 
       if(input >= lowerLimit && input <= upperLimit && input <= toInput.value){
         value.value[0] = input
@@ -66,7 +66,7 @@ export default {
     }
 
     const onToInputChanged = () => {
-      const input = parseInt(toInput.value)
+      const input = toInput.value
 
       if(input >= lowerLimit && input <= upperLimit && input >= fromInput.value){
         value.value[1] = input

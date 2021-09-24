@@ -19,6 +19,10 @@
           v-model:retailerFilter="retailerFilter" 
           v-model:brandFilter="brandFilter"
           v-model:priceRangeFilter="priceRangeFilter"
+          v-model:speedRangeFilter="speedRangeFilter"
+          v-model:glideRangeFilter="glideRangeFilter"
+          v-model:turnRangeFilter="turnRangeFilter"
+          v-model:fadeRangeFilter="fadeRangeFilter"
           @click="onFilterButtonClicked"
           @clearFilter="onClearFilter"
         />
@@ -69,11 +73,18 @@ export default {
   },
   setup(){   
     const discName = ref("")
+    
     const retailerFilter = ref([])
     const brandFilter = ref([])
     const priceRangeFilter = ref([0, 500])
+    const speedRangeFilter = ref([1, 15])
+    const glideRangeFilter = ref([1, 7])
+    const turnRangeFilter = ref([-5, 1])
+    const fadeRangeFilter = ref([1, 6])
+    
     const resetViewState = ref(false)
     const { getRouteQuery } = useRouteQuery(discName)
+    
     const sortOptionSelected = ref(getRouteQuery() === "" ? "random": "discname")
     const sortMode = ref(1)
     const sortOptions = ref([
@@ -91,9 +102,6 @@ export default {
     }
 
     const onClearFilter = () => {
-      retailerFilter.value = []
-      brandFilter.value = []
-      priceRangeFilter.value = [0, 500]
       resetViewState.value = !resetViewState.value
     }
 
@@ -108,6 +116,10 @@ export default {
       retailerFilter,
       brandFilter,
       priceRangeFilter,
+      speedRangeFilter,
+      glideRangeFilter,
+      turnRangeFilter,
+      fadeRangeFilter,
       resetViewState,
       sortOptions,
       sortMode,
