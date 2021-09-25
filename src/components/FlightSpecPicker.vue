@@ -29,7 +29,7 @@
 
 <script>
 import Slider from '@vueform/slider'
-import { ref, toRefs} from 'vue'
+import { ref, toRefs, watch } from 'vue'
 
 export default {
   components: {
@@ -41,19 +41,20 @@ export default {
       default: () => [1, 2],
     },
   },
-  emits: ["update:flightSpecRange"],
+  emits: ["update:flightSpecRange", "flightSpecChange"],
   setup(props, { emit }) {
     const { flightSpecRange } = toRefs(props)
     
     const value = ref(flightSpecRange.value)
     const lowerLimit = flightSpecRange.value[0]
     const upperLimit = flightSpecRange.value[1]
-    const fromInput = ref(lowerLimit)
-    const toInput = ref(upperLimit)
+    const fromInput = ref(flightSpecRange.value[0])
+    const toInput = ref(flightSpecRange.value[1])
 
     const onSliderChanged = () => {
       [fromInput.value, toInput.value] = [...value.value]
       emit("update:flightSpecRange", value.value)
+      emit("flightSpecChange")
     }
 
     const onFromInputChanged = () => {
@@ -62,6 +63,7 @@ export default {
       if(input >= lowerLimit && input <= upperLimit && input <= toInput.value){
         value.value[0] = input
         emit("update:flightSpecRange", value.value)
+        emit("flightSpecChange")
       }
     }
 
@@ -71,8 +73,15 @@ export default {
       if(input >= lowerLimit && input <= upperLimit && input >= fromInput.value){
         value.value[1] = input
         emit("update:flightSpecRange", value.value)
+        emit("flightSpecChange")
       }
     }
+
+    watch(flightSpecRange, (val) => {
+      value.value = val
+      fromInput.value = val[0]
+      toInput.value = val[1]
+    })
 
     return {
       value,

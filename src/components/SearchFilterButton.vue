@@ -159,6 +159,7 @@
               <div class="accordion-body">
                 <FlightSpecPicker 
                   v-model:flightSpecRange="selectedSpeedRange"
+                  @flightSpecChange="$emit('update:speedRangeFilter', selectedSpeedRange)"
                 />
               </div>
             </div>
@@ -189,6 +190,7 @@
               <div class="accordion-body">
                 <FlightSpecPicker 
                   v-model:flightSpecRange="selectedGlideRange"
+                  @flightSpecChange="$emit('update:glideRangeFilter', selectedGlideRange)"
                 />
               </div>
             </div>
@@ -219,6 +221,7 @@
               <div class="accordion-body">
                 <FlightSpecPicker 
                   v-model:flightSpecRange="selectedTurnRange"
+                  @flightSpecChange="$emit('update:turnRangeFilter', selectedTurnRange)"
                 />
               </div>
             </div>
@@ -249,6 +252,7 @@
               <div class="accordion-body">
                 <FlightSpecPicker 
                   v-model:flightSpecRange="selectedFadeRange"
+                  @flightSpecChange="$emit('update:fadeRangeFilter', selectedFadeRange)"
                 />
               </div>
             </div>
@@ -277,7 +281,7 @@
 </template>
 
 <script>
-import { ref, toRefs, onBeforeMount } from 'vue'
+import { ref, toRefs, onBeforeMount, computed, watchEffect } from 'vue'
 import { fetchRetailers } from '@/api/retailers'
 import { fetchBrands } from '@/api/brands'
 import PriceRange from '@/components/PriceRange'
@@ -299,49 +303,53 @@ export default {
     },
     priceRangeFilter: {
       type: Array,
-      default: () => [1, 2],
+      default: () => [],
     },
     speedRangeFilter: {
       type: Array,
-      default: () => [1, 2],
+      default: () => [],
     },
     glideRangeFilter: {
       type: Array,
-      default: () => [1, 2],
+      default: () => [],
     },
     turnRangeFilter: {
       type: Array,
-      default: () => [1, 2],
+      default: () => [],
     },
     fadeRangeFilter: {
       type: Array,
-      default: () => [1, 2],
+      default: () => [],
     },
   },
-  emits: ["clicked", "clearFilter", "update:retailerFilter", "update:brandFilter", "update:priceRangeFilter", "update:speedRangeFilter", "update:glideRangeFilter", "update:turnRangeFilter", "update:fadeRangeFilter"],
+  emits: ["clicked", "clearFilter", "flightSpecChanged", "update:retailerFilter", "update:brandFilter", "update:priceRangeFilter", "update:speedRangeFilter", "update:glideRangeFilter", "update:turnRangeFilter", "update:fadeRangeFilter"],
   setup(props, { emit }) {
     const { retailerFilter, brandsFilter, priceRangeFilter, speedRangeFilter, glideRangeFilter, turnRangeFilter, fadeRangeFilter } = toRefs(props)
-
     const retailersList = ref([])
     const checkedRetailers = ref([...retailerFilter.value])
-
     const brandsList = ref([])
     const checkedBrands = ref(...brandsFilter.value)
-
     const selectedPriceRange = ref(priceRangeFilter.value)
     const defaultPriceRange = [...priceRangeFilter.value]
-
     const selectedSpeedRange = ref(speedRangeFilter.value)
     const defaultSpeedRange = [...speedRangeFilter.value]
-
     const selectedGlideRange = ref(glideRangeFilter.value)
     const defaultGlideRange = [...glideRangeFilter.value]
-
     const selectedTurnRange = ref(turnRangeFilter.value)
     const defaultTurnRange = [...turnRangeFilter.value]
-
     const selectedFadeRange = ref(fadeRangeFilter.value)
     const defaultFadeRange = [...fadeRangeFilter.value]
+
+    const hasFlightSpecChange = computed(() => {
+      const hasSpeedRangeChange = speedRangeFilter.value.filter(x => !defaultSpeedRange.includes(x)).length > 0
+      const hasGlideRangeChange = glideRangeFilter.value.filter(x => !defaultGlideRange.includes(x)).length > 0
+      const hasTurnRangeChange  = turnRangeFilter.value.filter(x => !defaultTurnRange.includes(x)).length > 0
+      const hasFadeRangeChange  = fadeRangeFilter.value.filter(x => !defaultFadeRange.includes(x)).length > 0
+
+      return hasSpeedRangeChange || hasGlideRangeChange || hasTurnRangeChange || hasFadeRangeChange
+    })
+
+    watchEffect(() => emit("flightSpecChanged", hasFlightSpecChange.value))
 
     const getRetailers = async () => {
       retailersList.value = await fetchRetailers()

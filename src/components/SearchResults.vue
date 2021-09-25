@@ -78,6 +78,26 @@ export default {
       required: true,
       default: () => [],
     },
+    speedRangeFilter: {
+      type: Array,
+      required: true,
+      default: () => [],
+    },
+    glideRangeFilter: {
+      type: Array,
+      required: true,
+      default: () => [],
+    },
+    turnRangeFilter: {
+      type: Array,
+      required: true,
+      default: () => [],
+    },
+    fadeRangeFilter: {
+      type: Array,
+      required: true,
+      default: () => [],
+    },
     resultViewResetTrigger: {
       type: Boolean,
       required: true
@@ -90,16 +110,25 @@ export default {
       type: Number,
       required: true,
     },
+    flightSpecChanged: {
+      type: Boolean,
+      required: true,
+    },
   },
   setup(props) {
     const { 
       discName, 
       retailerFilter, 
       brandFilter, 
-      priceRangeFilter, 
+      priceRangeFilter,
+      speedRangeFilter,
+      glideRangeFilter,
+      turnRangeFilter,
+      fadeRangeFilter, 
       resultViewResetTrigger, 
       sortDiscsBy, 
-      sortMode 
+      sortMode,
+      flightSpecChanged,
     } = toRefs(props)
 
     const loading = ref(true)
@@ -107,7 +136,7 @@ export default {
     const resultsComponent = ref(null)
     const { discs } = useDiscs(loading)
     const { discsMatchingNameSearch } = useDiscNameSearch(discName, discs)
-    const { discsFiltered } = useDiscFilters(retailerFilter, brandFilter, priceRangeFilter, discsMatchingNameSearch)
+    const { discsFiltered } = useDiscFilters(retailerFilter, brandFilter, priceRangeFilter, speedRangeFilter, glideRangeFilter, turnRangeFilter, fadeRangeFilter, flightSpecChanged, discsMatchingNameSearch)
     const { discsSorted } = useDiscSort(sortDiscsBy, sortMode, discsFiltered)
     const { discVisibleWithScroll } = useDiscsAutoScroll(resultsComponent, resultViewResetTrigger, discsSorted)
 

@@ -25,6 +25,7 @@
           v-model:fadeRangeFilter="fadeRangeFilter"
           @click="onFilterButtonClicked"
           @clearFilter="onClearFilter"
+          @flightSpecChanged="onFlightSpecChanged"
         />
       </div>
     </div>
@@ -47,6 +48,11 @@
         :retailer-filter="retailerFilter"
         :brand-filter="brandFilter"
         :price-range-filter="priceRangeFilter"
+        :speed-range-filter="speedRangeFilter"
+        :glide-range-filter="glideRangeFilter"
+        :turn-range-filter="turnRangeFilter"
+        :fade-range-filter="fadeRangeFilter"
+        :flight-spec-changed="flightSpecChanged"
         :result-view-reset-trigger="resetViewState"
         :sort-discs-by="sortOptionSelected"
         :sort-mode="sortMode"
@@ -82,6 +88,7 @@ export default {
     const turnRangeFilter = ref([-5, 1])
     const fadeRangeFilter = ref([1, 6])
     
+    const flightSpecChanged = ref(false)
     const resetViewState = ref(false)
     const { getRouteQuery } = useRouteQuery(discName)
     
@@ -95,8 +102,6 @@ export default {
       { text: "Sist oppdatert", value: "updated" },
     ])
     
-    
-    
     const onFilterButtonClicked = () => {
       resetViewState.value = !resetViewState.value
     }
@@ -107,6 +112,10 @@ export default {
 
     const onSortChange = () => {
       resetViewState.value = !resetViewState.value
+    }
+
+    const onFlightSpecChanged = (val) => {
+      flightSpecChanged.value = val
     }
 
     onBeforeMount(() => discName.value = getRouteQuery())
@@ -124,9 +133,11 @@ export default {
       sortOptions,
       sortMode,
       sortOptionSelected,
+      flightSpecChanged,
       onFilterButtonClicked,
       onClearFilter,
       onSortChange,
+      onFlightSpecChanged,
     }
   },
 }
