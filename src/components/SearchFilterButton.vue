@@ -341,10 +341,10 @@ export default {
     const defaultFadeRange = [...fadeRangeFilter.value]
 
     const hasFlightSpecChange = computed(() => {
-      const hasSpeedRangeChange = speedRangeFilter.value.filter(x => !defaultSpeedRange.includes(x)).length > 0
-      const hasGlideRangeChange = glideRangeFilter.value.filter(x => !defaultGlideRange.includes(x)).length > 0
-      const hasTurnRangeChange  = turnRangeFilter.value.filter(x => !defaultTurnRange.includes(x)).length > 0
-      const hasFadeRangeChange  = fadeRangeFilter.value.filter(x => !defaultFadeRange.includes(x)).length > 0
+      const hasSpeedRangeChange = speedRangeFilter.value[0] !== defaultSpeedRange[0] || speedRangeFilter.value[1] !== defaultSpeedRange[1]
+      const hasGlideRangeChange = glideRangeFilter.value[0] !== defaultGlideRange[0] || glideRangeFilter.value[1] !== defaultGlideRange[1]
+      const hasTurnRangeChange = turnRangeFilter.value[0] !== defaultTurnRange[0] || turnRangeFilter.value[1] !== defaultTurnRange[1]
+      const hasFadeRangeChange = fadeRangeFilter.value[0] !== defaultFadeRange[0] || fadeRangeFilter.value[1] !== defaultFadeRange[1]
 
       return hasSpeedRangeChange || hasGlideRangeChange || hasTurnRangeChange || hasFadeRangeChange
     })
@@ -372,6 +372,7 @@ export default {
       emit("update:brandFilter", checkedBrands.value)
       emit("update:priceRangeFilter", selectedPriceRange.value)
       emit("update:speedRangeFilter", selectedSpeedRange.value)
+      emit("update:glideRangeFilter", selectedGlideRange.value)
       emit("update:turnRangeFilter", selectedTurnRange.value)
       emit("update:fadeRangeFilter", selectedFadeRange.value)
       emit("clearFilter")
