@@ -1,14 +1,14 @@
 <template>
-    <Slider 
-      id="priceRangeSlider"
-      v-model="value" 
-      :min="minPrice"
-      :max="maxPrice"
-      :step="priceStep"
-      :merge="priceMerge"
-      :format="format"
-      @change="onSliderChange"
-    />
+  <Slider 
+    id="priceRangeSlider"
+    v-model="value" 
+    :min="minPrice"
+    :max="maxPrice"
+    :step="priceStep"
+    :merge="priceMerge"
+    :format="format"
+    @change="onSliderChange"
+  />
 </template>
 
 <script>
