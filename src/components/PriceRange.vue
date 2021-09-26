@@ -1,11 +1,4 @@
 <template>
-  <div>
-    <label 
-      for="priceRangeSlider" 
-      class="form-label fs-4 mb-5"
-    >
-      Pris
-    </label>
     <Slider 
       id="priceRangeSlider"
       v-model="value" 
@@ -16,7 +9,6 @@
       :format="format"
       @change="onSliderChange"
     />
-  </div>
 </template>
 
 <script>

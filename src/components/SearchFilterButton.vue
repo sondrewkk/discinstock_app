@@ -259,11 +259,39 @@
           </div>
 
           <!-- Price -->
-          <div class="my-5 pt-5 mx-4">
-            <PriceRange 
-              v-model:priceRange="selectedPriceRange" 
-              @priceChange="$emit('update:priceRangeFilter', selectedPriceRange)" 
-            />
+          <div class="accordion-item">
+            <h2 
+              id="priceHeader"
+              class="accordion-header" 
+            >
+              <button 
+                class="accordion-button collapsed" 
+                type="button" 
+                data-bs-toggle="collapse" 
+                data-bs-target="#collapsePrice" 
+                aria-expanded="false" 
+                aria-controls="collapsePrice"
+              >
+                Pris
+              </button>
+            </h2>
+            <div 
+              id="collapsePrice" 
+              class="accordion-collapse collapse" 
+              aria-labelledby="priceHeader"
+            >
+              <div class="accordion-body">
+                <div class="d-flex justify-content-center">
+                  <div class="mx-3 mt-5 w-100">
+                    <PriceRange 
+                      v-model:priceRange="selectedPriceRange" 
+                      @priceChange="$emit('update:priceRangeFilter', selectedPriceRange)" 
+                    />
+                  </div>
+                </div>
+                
+              </div>
+            </div>
           </div>
         </div>
 
