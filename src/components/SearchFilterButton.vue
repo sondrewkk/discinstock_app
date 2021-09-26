@@ -355,7 +355,7 @@ export default {
     const retailersList = ref([])
     const checkedRetailers = ref([...retailerFilter.value])
     const brandsList = ref([])
-    const checkedBrands = ref(...brandsFilter.value)
+    const checkedBrands = ref([...brandsFilter.value])
     const selectedPriceRange = ref(priceRangeFilter.value)
     const defaultPriceRange = [...priceRangeFilter.value]
     const selectedSpeedRange = ref(speedRangeFilter.value)
