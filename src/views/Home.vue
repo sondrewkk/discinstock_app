@@ -86,7 +86,7 @@ export default {
     const speedRangeFilter = ref([1, 15])
     const glideRangeFilter = ref([1, 7])
     const turnRangeFilter = ref([-5, 1])
-    const fadeRangeFilter = ref([1, 6])
+    const fadeRangeFilter = ref([0, 6])
     
     const flightSpecChanged = ref(false)
     const resetViewState = ref(false)
