@@ -42,44 +42,59 @@
 
   <router-view />
 
-  <footer class="bg-dark text-center text-white mt-5">
-    <div class="container p-4 pb-0">
-      <section class="mb-4">
-        <!-- Facebook -->
+  <footer class="bg-dark text-center text-white py-4">
+    <div class="d-flex flex-row justify-content-center">
+      <div class="h2 bd-highlight mx-2">
         <a 
           class="link-secondary" 
           href="https://www.facebook.com/discinstock"
         >
-          <p class="h4 mb-2"> 
-            <BIconFacebook /> 
-          </p>
+          <BIconFacebook />
         </a>
-      </section>
+      </div>
+      <div class="h2 bd-highlight mx-2">
+        <a 
+          class="link-secondary" 
+          href="https://discord.gg/SYvwbeQcjk"
+        >
+          <BIconDiscord />
+        </a>
+      </div>
+      <div class="h2 bd-highlight mx-2">
+        <a 
+          class="link-secondary" 
+          href="https://twitter.com/discinstock"
+        >
+          <BIconTwitter />
+        </a>
+      </div>
     </div>
-
-    <div 
-      class="text-center p-3" 
-      style="background-color: rgba(0, 0, 0, 0.2);"
-    >
-      © 2022 Copyright:
-      <a 
-        class="text-white" 
-        href="https://discinstock.no/"
+    <div class="d-flex flex-row justify-content-center">
+      <div 
+        class="text-center p-3" 
       >
-        Discinstock.no
-      </a>
+        © 2022 Copyright
+        <a 
+          class="text-white" 
+          href="https://discinstock.no/"
+        >
+          Discinstock.no
+        </a>
+      </div>
     </div>
   </footer>
 </template>
 
 <script>
 import { useRouter } from 'vue-router'
-import { BIconFacebook } from 'bootstrap-icons-vue'
+import { BIconFacebook, BIconDiscord, BIconTwitter } from 'bootstrap-icons-vue'
 
 export default {
   name: 'App',
   components: {
-    BIconFacebook
+    BIconFacebook,
+    BIconDiscord,
+    BIconTwitter
   },
   setup() {
     const router = useRouter()
