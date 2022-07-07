@@ -90,9 +90,10 @@ export default {
     
     const flightSpecChanged = ref(false)
     const resetViewState = ref(false)
-    const { getRouteQuery } = useRouteQuery(discName)
-    
-    const sortOptionSelected = ref(getRouteQuery() === "" ? "random": "discname")
+    const { getRouteQuery } = useRouteQuery(discName, retailerFilter)
+    let query = getRouteQuery()
+
+    const sortOptionSelected = ref(query.name === undefined ? "random": "discname")
     const sortMode = ref(1)
     const sortOptions = ref([
       { text: "Tilfeldig", value: "random" },
@@ -118,7 +119,21 @@ export default {
       flightSpecChanged.value = val
     }
 
-    onBeforeMount(() => discName.value = getRouteQuery())
+    // Set default values used when discs is filtered from first load
+    onBeforeMount(() => {
+      if(query.name){
+        discName.value = query.name
+      }
+
+      if(query.retailer){
+        if(Array.isArray(query.retailer)){
+          retailerFilter.value = [...query.retailer]
+        } else {
+          retailerFilter.value.push(query.retailer)
+        }
+        
+      }
+    })
 
     return {
       discName,

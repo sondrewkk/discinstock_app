@@ -1,28 +1,29 @@
 import { watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
-export default function useRouteQuery(discName) {
+export default function useRouteQuery(discName, retialerFilter) {
   const route = useRoute()
   const router = useRouter()
   
   const getRouteQuery = () => {
-    if ("name" in route.query) {
-      return route.query.name;
-    }
-
-    return ""
+    return route.query
   }
 
   const onDiscNameChanged = () => {
-    if(discName.value !== undefined && discName.value.length == 0){
-      router.replace({ query: null })
-    }
-    else {
-        router.replace({ query: { name: discName.value }})
-    }
+    let query = route.query
+    let name = discName.value.length == 0 ? undefined : discName.value
+    router.replace({query: {...query, name: name}})
   }
   
   watch(discName, onDiscNameChanged)
+
+  const onRetailerFilterChanged = () => {
+    let query = route.query
+    let retailer = retialerFilter.value
+    router.replace({query: {...query, retailer: retailer}})
+  }
+
+  watch(retialerFilter, onRetailerFilterChanged)
 
   return {
     getRouteQuery
