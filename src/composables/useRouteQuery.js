@@ -4,15 +4,25 @@ import { useRoute, useRouter } from 'vue-router'
 export default function useRouteQuery(discName, retialerFilter) {
   const route = useRoute()
   const router = useRouter()
+  const setUrlNameParamDelay = process.env.VUE_APP_SET_URL_NAME_PARAM_DELAY
+  let timerId = -1
   
   const getRouteQuery = () => {
     return route.query
   }
 
   const onDiscNameChanged = () => {
-    let query = route.query
-    let name = discName.value.length == 0 ? undefined : discName.value
-    router.replace({query: {...query, name: name}})
+    if(timerId !== -1){
+      clearTimeout(timerId)
+    }
+
+    timerId = setTimeout(() => {
+      // If disk name has not changed in .3 seconds, set name param to disc name
+      let query = route.query
+      let name = discName.value.length == 0 ? undefined : discName.value
+      router.replace({query: {...query, name: name}})
+      timerId = -1
+    }, setUrlNameParamDelay)
   }
   
   watch(discName, onDiscNameChanged)
