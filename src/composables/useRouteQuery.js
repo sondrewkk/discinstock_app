@@ -4,7 +4,7 @@ import { useRoute, useRouter } from 'vue-router'
 export default function useRouteQuery(discName, retialerFilter) {
   const route = useRoute()
   const router = useRouter()
-  const setUrlNameParamDelay = process.env.VUE_APP_SET_URL_NAME_PARAM_DELAY
+  const setUrlNameParamDelay = 1200
   let timerId = -1
   
   const getRouteQuery = () => {
