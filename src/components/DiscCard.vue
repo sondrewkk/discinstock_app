@@ -45,7 +45,7 @@
       </div>
     </div>
     <a 
-      :href="url" 
+      :href="`${url}?utm_medium=discinstock&utm_source=discinstock.no&utm_campaign=cpc`" 
       class="stretched-link"
       target="_blank" 
     />
