@@ -73,7 +73,7 @@
       <div 
         class="text-center p-3" 
       >
-        © 2022 Copyright
+        © 2021-2024 Copyright
         <a 
           class="text-white" 
           href="https://discinstock.no/"
