@@ -78,7 +78,7 @@
                       class="form-check-label" 
                       :for="retailer.name"
                     >
-                      {{ retailer.name.charAt(0).toUpperCase() + retailer.name.substring(1) }}
+                      {{ retailer.name?.charAt(0).toUpperCase() + retailer.name?.substring(1) }}
                     </label>
                   </div>
                 </div>      
@@ -311,8 +311,8 @@
 import { ref, toRefs, onBeforeMount, computed, watchEffect } from 'vue'
 import { fetchRetailers } from '@/api/retailers'
 import { fetchBrands } from '@/api/brands'
-import PriceRange from '@/components/PriceRange'
-import FlightSpecPicker from '@/components/FlightSpecPicker'
+import PriceRange from '@/components/PriceRange.vue'
+import FlightSpecPicker from '@/components/FlightSpecPicker.vue'
 
 export default {
   components: {

@@ -51,7 +51,7 @@
  import useDiscsAutoScroll from '@/composables/useDiscsAutoScroll'
  import useDiscFilters from '@/composables/useDiscFilters'
  import useDiscSort from '@/composables/useDiscSort'
- import DiscCard from './DiscCard'
+ import DiscCard from '@/components/DiscCard.vue'
 
 export default {
   name: "SearchResults",

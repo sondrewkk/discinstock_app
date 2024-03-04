@@ -57,26 +57,26 @@
         :sort-discs-by="sortOptionSelected"
         :sort-mode="sortMode"
       />
-    </div>
+    </div> 
   </div>
 </template>
 
 <script>
-import SearchBar from '../components/SearchBar'
-import SearchResults from '../components/SearchResults'
-import SearchFilterButton from '@/components/SearchFilterButton'
-import SearchResultSortSelect from '@/components/SearchResultSortSelect'
+import SearchBar from '@/components/SearchBar.vue'
+import SearchResults from '@/components/SearchResults.vue'
+import SearchFilterButton from '@/components/SearchFilterButton.vue'
+import SearchResultSortSelect from '@/components/SearchResultSortSelect.vue'
 import { onBeforeMount, ref } from 'vue'
 import useRouteQuery from '@/composables/useRouteQuery'
 
 export default {
   name: 'Home',
-  components: {
+   components: {
     SearchBar,
     SearchResults,
     SearchFilterButton,
     SearchResultSortSelect,
-  },
+   },
   setup(){   
     const discName = ref("")
     

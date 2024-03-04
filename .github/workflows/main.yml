@@ -53,7 +53,7 @@ jobs:
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/buildx-cache
           build-args: |
-            VUE_APP_API_URL=https://api.discinstock.no
+            VITE_API_URL=https://api.discinstock.no
       - 
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
